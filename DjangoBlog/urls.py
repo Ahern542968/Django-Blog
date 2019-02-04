@@ -19,10 +19,12 @@ from django.urls import path, include
 import xadmin
 from xadmin.plugins import xversion
 
+
 xversion.register_models()
 xadmin.autodiscover()
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
+    path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
 ]

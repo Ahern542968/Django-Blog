@@ -35,7 +35,7 @@ class BlogTag(models.Model):
 class Blog(models.Model):
     author = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
     blog_type = models.ForeignKey(BlogType, verbose_name='分类', on_delete=models.CASCADE)
-    blog_tag = models.ForeignKey(BlogTag, verbose_name='标签', on_delete=models.CASCADE)
+    blog_tag = models.ManyToManyField(BlogTag, verbose_name='标签')
     title = models.CharField(max_length=50, verbose_name='标题')
     content = models.TextField(verbose_name='内容')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
