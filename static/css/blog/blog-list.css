@@ -1,0 +1,18 @@
+/* blog list CSS
+-------------------------------------------------- */
+
+.sort-span {
+    padding-left: 0.5em;
+}
+
+.type-item {
+    display: inline-block;
+}
+
+.type-buttom {
+    font-size: 14.5px;
+}
+
+.blog-item {
+    border-bottom: 0;
+}

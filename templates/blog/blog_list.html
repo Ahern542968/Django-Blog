@@ -1,0 +1,183 @@
+{% extends 'blog/blog_right.html' %}
+{% load staticfiles %}
+{% block left_css %}
+    <link href="{% static 'css/blog/blog-list.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}blog list{% endblock %}
+
+{% block blog_left %}
+    <div class="in-left col-md-9 col-12">
+            <div class="filter-items">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="type-items">
+                            <div class="type-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                            id="filter-by-date" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        date
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-by-date">
+                                        <button class="dropdown-item" type="button">near to far</button>
+                                        <button class="dropdown-item" type="button">far to near</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="type-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                            id="filter-by-read-num" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        read
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-by-read-num">
+                                        <button class="dropdown-item" type="button">more to less</button>
+                                        <button class="dropdown-item" type="button">less to more</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="type-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                            id="filter-by-comment-num" data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">
+                                        comment
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-by-comment-num">
+                                        <button class="dropdown-item" type="button">more to less</button>
+                                        <button class="dropdown-item" type="button">less to more</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="type-item">
+                                <span class="sort-span">sort：
+                                    <span id="sorted_by">by date from near to far</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="tag-items">
+                            <label class="tag-item"><input type="checkbox" value="false">python&nbsp;(num)&nbsp;</label>
+                            <label class="tag-item"><input type="checkbox"
+                                                           value="false">java&nbsp;(num)&nbsp;</label>
+                            <label class="tag-item"><input type="checkbox"
+                                                           value="false">database&nbsp;(num)&nbsp;</label>
+                            <label class="tag-item"><input type="checkbox" value="false">linux&nbsp;(num)&nbsp;</label>
+                            <a href="#" class="btn btn-success btn-sm" role="button">clear up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-items">
+                <div class="card blog-item">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">Card title</a></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural
+                            lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span></span>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span>2018-02-05&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>1357&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span>63&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>python&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>linux&nbsp;&nbsp;</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="card blog-item">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">Card title</a></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural
+                            lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span></span>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span>2018-02-05&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>1357&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span>63&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>python&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>linux&nbsp;&nbsp;</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="card blog-item">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">Card title</a></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural
+                            lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span></span>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span>2018-02-05&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>1357&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span>63&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>python&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>linux&nbsp;&nbsp;</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">Card title</a></h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural
+                            lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span></span>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span>2018-02-05&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>1357&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span>63&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>python&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-tag"></span>
+                                <span>linux&nbsp;&nbsp;</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block extend_js %}{% endblock %}

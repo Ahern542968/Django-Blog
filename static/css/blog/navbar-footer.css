@@ -27,6 +27,10 @@ body > .container {
   padding: 60px 15px 0;
 }
 
+.main {
+    margin-top: 86px;
+}
+
 .footer > .container {
   padding-right: 15px;
   padding-left: 15px;
