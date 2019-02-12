@@ -38,6 +38,10 @@ class Blog(models.Model):
     blog_tag = models.ManyToManyField(BlogTag, verbose_name='标签')
     title = models.CharField(max_length=50, verbose_name='标题')
     content = models.TextField(verbose_name='内容')
+    is_top = models.BooleanField(default=False, verbose_name='是否推荐')
+    like_num = models.IntegerField(default=0, verbose_name='点赞数量')
+    read_num = models.IntegerField(default=0, verbose_name='阅读数量')
+    comm_num = models.IntegerField(default=0, verbose_name='评论数量')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated_date = models.DateTimeField(auto_now=True, verbose_name='修改时间')
 
