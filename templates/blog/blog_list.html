@@ -8,175 +8,224 @@
 
 {% block blog_left %}
     <div class="in-left col-md-9 col-12">
-            <div class="filter-items">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="type-items">
-                            <div class="type-item">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
-                                            id="filter-by-date" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        date
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="filter-by-date">
-                                        <button class="dropdown-item" type="button">near to far</button>
-                                        <button class="dropdown-item" type="button">far to near</button>
-                                    </div>
+        <div class="filter-items">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="type-items">
+                        <div class="type-item">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                        id="filter-by-date" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    date
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter-by-date">
+                                    <button class="dropdown-item" type="button">near to far</button>
+                                    <button class="dropdown-item" type="button">far to near</button>
                                 </div>
                             </div>
-                            <div class="type-item">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
-                                            id="filter-by-read-num" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        read
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="filter-by-read-num">
-                                        <button class="dropdown-item" type="button">more to less</button>
-                                        <button class="dropdown-item" type="button">less to more</button>
-                                    </div>
+                        </div>
+                        <div class="type-item">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                        id="filter-by-read-num" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    read
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter-by-read-num">
+                                    <button class="dropdown-item" type="button">more to less</button>
+                                    <button class="dropdown-item" type="button">less to more</button>
                                 </div>
                             </div>
-                            <div class="type-item">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
-                                            id="filter-by-comment-num" data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-                                        comment
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="filter-by-comment-num">
-                                        <button class="dropdown-item" type="button">more to less</button>
-                                        <button class="dropdown-item" type="button">less to more</button>
-                                    </div>
+                        </div>
+                        <div class="type-item">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle type-buttom" type="button"
+                                        id="filter-by-comment-num" data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    comment
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter-by-comment-num">
+                                    <button class="dropdown-item" type="button">more to less</button>
+                                    <button class="dropdown-item" type="button">less to more</button>
                                 </div>
                             </div>
-                            <div class="type-item">
+                        </div>
+                        <div class="type-item">
                                 <span class="sort-span">sort：
                                     <span id="sorted_by">by date from near to far</span>
                                 </span>
-                            </div>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <div class="tag-items">
-                            <label class="tag-item"><input type="checkbox" value="false">all&nbsp;(num)&nbsp;</label>
-                            <label class="tag-item"><input type="checkbox" value="false">python&nbsp;(num)&nbsp;</label>
-                            <label class="tag-item"><input type="checkbox" value="false">java&nbsp;(num)&nbsp;</label>
-                            <label class="tag-item"><input type="checkbox" value="false">database&nbsp;(num)&nbsp;</label>
-                            <label class="tag-item"><input type="checkbox" value="false">linux&nbsp;(num)&nbsp;</label>
-                            <a href="#" class="btn btn-success btn-sm" role="button">clear up</a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="blog-items">
-                <div class="card blog-item">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Card title</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural
-                            lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <span></span>
-                                <span class="glyphicon glyphicon-time"></span>
-                                <span>2018-02-05&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span>1357&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                <span>63&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-comment"></span>
-                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>python&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>linux&nbsp;&nbsp;</span>
-                            </small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card blog-item">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Card title</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural
-                            lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <span></span>
-                                <span class="glyphicon glyphicon-time"></span>
-                                <span>2018-02-05&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span>1357&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                <span>63&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-comment"></span>
-                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>python&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>linux&nbsp;&nbsp;</span>
-                            </small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card blog-item">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Card title</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural
-                            lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <span></span>
-                                <span class="glyphicon glyphicon-time"></span>
-                                <span>2018-02-05&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span>1357&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                <span>63&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-comment"></span>
-                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>python&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>linux&nbsp;&nbsp;</span>
-                            </small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">Card title</a></h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural
-                            lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="dropdown-divider"></div>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <span></span>
-                                <span class="glyphicon glyphicon-time"></span>
-                                <span>2018-02-05&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span>1357&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                                <span>63&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-comment"></span>
-                                <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>python&nbsp;&nbsp;</span>
-                                <span class="glyphicon glyphicon-tag"></span>
-                                <span>linux&nbsp;&nbsp;</span>
-                            </small>
-                        </p>
+                    <div class="dropdown-divider"></div>
+                    <div class="tag-items">
+                        <label class="tag-item"><input type="checkbox" checked
+                                                       value="false">all&nbsp;({{ blog_list | length }})&nbsp;</label>
+                        {% for tag in tag_list %}
+                            <label class="tag-item"><input type="checkbox"
+                                                           value="false">{{ tag.name }}&nbsp;({{ tag.get_blog_num }})&nbsp;</label>
+                        {% endfor %}
+                        <a href="{% url 'blog:blog_list' %}" class="btn btn-success btn-sm" role="button">clear up</a>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="blog-items d-none d-sm-block">
+            {% for blog in blog_list %}
+                <div class="card blog-item">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">{{ blog.title }}</a></h5>
+                        <p class="card-text">{{ blog.content | truncatewords:"50" }}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span></span>
+                                <span class="glyphicon glyphicon-time"></span>
+                                <span>{{ blog.created_date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>{{ blog.read_num }}&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
+                                <span class="glyphicon glyphicon-comment"></span>
+                                <span>{{ blog.comm_num }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                {% for tag in blog.blog_tag.all %}
+                                    <span class="glyphicon glyphicon-tag"></span>
+                                    <span>{{ tag }}&nbsp;&nbsp;</span>
+                                {% endfor %}
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            {% empty %}
+                <p> ------ 暂无博客 ------ </p>
+            {% endfor %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="#">Card title</a></h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural
+                        lead-in to
+                        additional content. This content is a little bit longer.</p>
+                    <div class="dropdown-divider"></div>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <span></span>
+                            <span class="glyphicon glyphicon-time"></span>
+                            <span>2018-02-05&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>1357&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span>63&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-tag"></span>
+                            <span>python&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-tag"></span>
+                            <span>linux&nbsp;&nbsp;</span>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="blog-items d-sm-none">
+            {% for blog in blog_list %}
+                <div class="card blog-item">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="#">{{ blog.title }}</a></h5>
+                        <p class="card-text">{{ blog.content | truncatewords:"50" }}</p>
+                        <div class="dropdown-divider"></div>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span class="tag-span">
+                                    <span></span>
+                                    <span class="glyphicon glyphicon-time"></span>
+                                    <span>{{ blog.created_date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</span>
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span>{{ blog.read_num }}&nbsp;&nbsp;</span>
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                    <span>{{ blog.comm_num }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </span>
+                                <span class="tag-span">
+                                    {% for tag in blog.blog_tag.all %}
+                                        <span class="glyphicon glyphicon-tag"></span>
+                                        <span>{{ tag }}&nbsp;&nbsp;</span>
+                                    {% endfor %}
+                                </span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            {% empty %}
+                <p> ------ 暂无博客 ------ </p>
+            {% endfor %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="#">Card title</a></h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural
+                        lead-in to
+                        additional content. This content is a little bit longer.</p>
+                    <div class="dropdown-divider"></div>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <span></span>
+                            <span class="glyphicon glyphicon-time"></span>
+                            <span>2018-02-05&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span>1357&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span>63&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <span>999&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-tag"></span>
+                            <span>python&nbsp;&nbsp;</span>
+                            <span class="glyphicon glyphicon-tag"></span>
+                            <span>linux&nbsp;&nbsp;</span>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% if is_paginated %}
+            <nav aria-label="blog pagination" class="mb-4">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Prev</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Prev</span>
+                        </li>
+                    {% endif %}
+                    {% for page_num in paginator.page_range %}
+                        {% if page_obj.number == page_num %}
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    {{ page_num }}
+                                    <span class="sr-only">(current)</span>
+                                </span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block extend_js %}{% endblock %}

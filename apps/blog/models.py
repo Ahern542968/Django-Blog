@@ -24,6 +24,9 @@ class BlogTag(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated_date = models.DateTimeField(auto_now=True, verbose_name='修改时间')
 
+    def get_blog_num(self):
+        return self.blog_set.all().count()
+
     class Mate:
         verbose_name = '博客标签'
         verbose_name_plural = verbose_name

@@ -1,6 +1,7 @@
 db.sqlite3
 settings.py
 __pycache__/
+migrations/
 .idea
 media/
 settings.py
