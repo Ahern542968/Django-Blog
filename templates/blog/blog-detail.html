@@ -1,0 +1,37 @@
+{% extends 'blog/blog-right.html' %}
+{% load staticfiles %}
+{% block left_css %}
+    <link href="{% static 'css/blog/blog-detail.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}blog detail{% endblock %}
+
+{% block blog_left %}
+    <div class="in-left col-md-9 col-12">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #0d56a6">{{ blog.title }}</h5>
+                <div class="text-muted">
+                    <div class="dib-fsm">date：{{ blog.date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</div>
+                    <div class="dib-fsm">author：{{ blog.author }}</div>
+                </div>
+                <div class="text-muted">
+                    <div class="dib-fsm">tags：
+                        {% for tag in blog.blog_tag.all %}
+                        <a href="#">{{ tag }}&nbsp;&nbsp;</a>
+                        {% endfor %}
+                    </div>
+                    <div class="dib-fsm">view：{{ blog.view }}&nbsp;&nbsp;</div>
+                    <div class="dib-fsm">comm：{{ blog.comm }}</div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extend_js %}{% endblock %}

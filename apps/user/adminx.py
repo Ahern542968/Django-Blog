@@ -16,7 +16,7 @@ class GlobalSettings(object):
 
 
 class UserProfileAdmin(object):
-    list_display = ['id', 'nickname', 'username', 'email', 'is_active', 'is_super', 'created_date']
+    list_display = ['id', 'nickname', 'username', 'email', 'is_active', 'is_super', 'date']
     search_fields = ['id', 'nickname', 'username', 'email', 'is_active', 'is_super']
     list_filter = ['is_active', 'is_super']
 
