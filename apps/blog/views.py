@@ -11,20 +11,23 @@ class BlogListView(ListView):
     model = Blog
     context_object_name = 'blog_list'
     template_name = 'blog/blog-list.html'
-    paginate_by = 6
+    paginate_by = 5
 
     def get_queryset(self):
+        queryset = super().get_queryset()
         tags = self.request.GET.getlist('tag')
         if not tags:
-            return self.model.objects.order_by('-date')
+            return queryset.order_by('-date')
         sf = self.request.GET.get('sf', '-date')
-        return self.get_sf_queryset(tags, sf)
+        return self.get_sf_queryset(queryset, tags, sf)
 
-    def get_sf_queryset(self, tags, sf):
-        q = Q()
-        q.connector = 'OR'
-        q.children.extend(tags)
-        return self.model.objects.filter(q).order_by(sf)
+    @staticmethod
+    def get_sf_queryset(queryset, tags, sf):
+        if sf not in ['date', '-date', 'view', '-view', 'comm', '-comm']:
+            sf = '-date'
+        tags_name = [tag.name for tag in BlogTag.objects.all()]
+        tags = [tag for tag in tags if tag in tags_name]
+        return queryset.filter(blog_tag__name__in=tags).order_by(sf)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -18,11 +18,12 @@
                 <div class="text-muted">
                     <div class="dib-fsm">tags：
                         {% for tag in blog.blog_tag.all %}
-                        <a href="#">{{ tag }}&nbsp;&nbsp;</a>
+                        <a href="{% url 'blog:blog-list' %}?tag={{ tag }}">{{ tag }}&nbsp;&nbsp;</a>
                         {% endfor %}
                     </div>
                     <div class="dib-fsm">view：{{ blog.view }}&nbsp;&nbsp;</div>
-                    <div class="dib-fsm">comm：{{ blog.comm }}</div>
+                    <div class="dib-fsm">comm：{{ blog.comm }}&nbsp;&nbsp;</div>
+                    <div class="dib-fsm glyphicon glyphicon-thumbs-up"></div>
                 </div>
                 <div class="dropdown-divider"></div>
                 <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>

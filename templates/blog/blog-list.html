@@ -86,10 +86,10 @@
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
                                 <span class="glyphicon glyphicon-comment"></span>
-                                <span>{{ blog.comm }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span>{{ blog.comm }}&nbsp;&nbsp;</span>
                                 {% for tag in blog.blog_tag.all %}
                                     <span class="glyphicon glyphicon-tag"></span>
-                                    <span>{{ tag }}&nbsp;&nbsp;</span>
+                                    <a href="?tag={{ tag }}"><span>{{ tag }}&nbsp;&nbsp;</span></a>
                                 {% endfor %}
                             </small>
                         </p>
@@ -117,12 +117,12 @@
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-comment"></span>
-                                    <span>{{ blog.comm }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>{{ blog.comm }}&nbsp;&nbsp;</span>
                                 </span>
                                 <span class="tag-span">
                                     {% for tag in blog.blog_tag.all %}
                                         <span class="glyphicon glyphicon-tag"></span>
-                                        <a href=""><span>{{ tag }}&nbsp;&nbsp;</span></a>
+                                        <a href="?tag={{ tag }}"><span>{{ tag }}&nbsp;&nbsp;</span></a>
                                     {% endfor %}
                                 </span>
                             </small>
