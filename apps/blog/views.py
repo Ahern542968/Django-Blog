@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import View, ListView
 from django.views.generic.detail import DetailView
-from django.db.models import Q
 
 from .models import Blog, BlogTag
+from comment.forms import CommentForm
 # Create your views here.
 
 
@@ -42,6 +42,14 @@ class BlogDetailView(DetailView):
     context_object_name = 'blog'
     slug_url_kwarg = 'blog_id'
     template_name = 'blog/blog-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['prev_blog'] = self.model.objects.filter(id__lt=self.object.id).order_by('-id').first()
+        context['next_blog'] = self.model.objects.filter(id__gt=self.object.id).order_by('id').first()
+        context['comments'] = self.object.comment_set.all()
+        context['form'] = CommentForm(initial={'blog': self.object})
+        return context
 
 
 

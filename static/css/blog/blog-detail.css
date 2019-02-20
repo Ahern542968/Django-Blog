@@ -1,7 +1,34 @@
 /* blog detail page CSS
 -------------------------------------------------- */
 
+.blog-title {
+    color: #0d56a6;
+}
+
+.dlh-45 {
+    display: inline-block;
+    line-height: 43px;
+}
+
+.dlh-40 {
+    display: inline-block;
+    line-height: 37px;
+}
+
 .dib-fsm {
     display: inline-block;
     font-size: small;
+}
+
+.comment-content {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    resize: none;
+    height: 38px;
+    font-size: 14px;
+    line-height: 22px;
+    box-sizing: border-box;
+    transition: height .3s ease-in-out;
 }

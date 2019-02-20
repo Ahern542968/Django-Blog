@@ -8,29 +8,86 @@
 
 {% block blog_left %}
     <div class="in-left col-md-9 col-12">
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title" style="color: #0d56a6">{{ blog.title }}</h5>
-                <div class="text-muted">
-                    <div class="dib-fsm">date：{{ blog.date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</div>
-                    <div class="dib-fsm">author：{{ blog.author }}</div>
+        <div class="blog">
+            <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
+                <div class="dlh-45">Welcome to correct me</div>
+                <div class="dlh-40">
+                    <button class="btn btn-outline-success btn-sm my-2 my-sm-0 " type="submit">I wanna
+                        share
+                    </button>
                 </div>
-                <div class="text-muted">
-                    <div class="dib-fsm">tags：
-                        {% for tag in blog.blog_tag.all %}
-                        <a href="{% url 'blog:blog-list' %}?tag={{ tag }}">{{ tag }}&nbsp;&nbsp;</a>
-                        {% endfor %}
-                    </div>
-                    <div class="dib-fsm">view：{{ blog.view }}&nbsp;&nbsp;</div>
-                    <div class="dib-fsm">comm：{{ blog.comm }}&nbsp;&nbsp;</div>
-                    <div class="dib-fsm glyphicon glyphicon-thumbs-up"></div>
-                </div>
-                <div class="dropdown-divider"></div>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <p class="card-text">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </p>
             </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title blog-title">{{ blog.title }}</h5>
+                    <div class="text-muted">
+                        <div class="dib-fsm">date：{{ blog.date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</div>
+                        <div class="dib-fsm">author：{{ blog.author }}</div>
+                    </div>
+                    <div class="text-muted">
+                        <div class="dib-fsm">tags：
+                            {% for tag in blog.blog_tag.all %}
+                                <a href="{% url 'blog:blog-list' %}?tag={{ tag }}">{{ tag }}&nbsp;&nbsp;</a>
+                            {% endfor %}
+                        </div>
+                        <div class="dib-fsm">view：{{ blog.view }}&nbsp;&nbsp;</div>
+                        <div class="dib-fsm">comm：{{ blog.comm }}&nbsp;&nbsp;</div>
+                        <div class="dib-fsm glyphicon glyphicon-thumbs-up"></div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional
+                        content.</p>
+                    <div class="card-text">
+                        <div class="card-body pb-0 pt-0 pl-2">
+                            <div class="dropdown-divider"></div>
+                            <div class="card-text">
+                                <small class="text-muted">{% if prev_blog %}
+                                    <a href="{{ prev_blog.get_absolute_url }}">Prev
+                                        blog：{{ prev_blog.title }}</a>{% endif %}</small>
+                            </div>
+                            <div class="card-text">
+                                <small class="text-muted">{% if next_blog %}
+                                    <a href="{{ next_blog.get_absolute_url }}">Next
+                                        blog：{{ next_blog.title }}</a>{% endif %}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comments" id="comments">
+            <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
+                <div class="dlh-45">CommList</div>
+                <div class="dlh-40">
+                    <button class="btn btn-outline-success btn-sm my-2 my-sm-0 " type="submit">I wanna comm</button>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body comm-items pb-2">
+                    {% for comment in comments %}
+                        <div class="comm-item">
+                            <div class="comm-user">{{ comment.user.username }}</div>
+                            <div class="comm-body pl-5">{{ comment.content }}</div>
+                            <div class="comm-footer pt-1 pb-1" style="text-align: right">
+                                <span>#{{ forloop.counter }}&nbsp;</span>
+                                <span>{{ comment.date | date:'Y-m-d H:i' }}&nbsp;</span>
+                                <a href=""><span>reply</span></a>
+                            </div>
+                        </div>
+                        {% if not forloop.last %}
+                            <div class="dropdown-divider"></div>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="comment">
+            <form action="{% url 'comment:create-comment' %}" id="comment-form" method="post">
+                {% csrf_token %}
+                {% for filed in form %}
+                    {{ filed }}
+                {% endfor %}
+                <div class="d-flex justify-content-end mr-2"><button type="submit" class="btn btn-dark btn-sm pt-1 pb-1 mt-1 mb-3">comm</button></div>
+            </form>
         </div>
     </div>
 {% endblock %}

@@ -27,4 +27,6 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
+    path('comment/', include(('comment.urls', 'comment'), namespace='comment')),
+    path('user/', include(('user.urls', 'user'), namespace='user')),
 ]

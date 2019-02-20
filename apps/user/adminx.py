@@ -1,8 +1,6 @@
 import xadmin
 from xadmin import views
 
-from .models import UserProfile
-
 
 class BaseSetting(object):
     enable_themes = True
@@ -21,6 +19,5 @@ class UserProfileAdmin(object):
     list_filter = ['is_active', 'is_super']
 
 
-# xadmin.site.register(UserProfile, UserProfileAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
