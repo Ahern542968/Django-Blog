@@ -15,7 +15,7 @@ class CommentView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'blog/blog-detail.html'
-    login_url = 'user:login'
+    login_url = 'user:user-login'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -24,4 +24,4 @@ class CommentView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog-detail', args=[str(self.object.blog.id)])
+        return reverse('blog:blog-detail', args=[str(self.object.blog.id)]) + '#next_blog'

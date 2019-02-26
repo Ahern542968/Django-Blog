@@ -40,12 +40,12 @@
                     <div class="card-text">
                         <div class="card-body pb-0 pt-0 pl-2">
                             <div class="dropdown-divider"></div>
-                            <div class="card-text">
+                            <div class="card-text" id="prev_blog">
                                 <small class="text-muted">{% if prev_blog %}
                                     <a href="{{ prev_blog.get_absolute_url }}">Prev
                                         blog：{{ prev_blog.title }}</a>{% endif %}</small>
                             </div>
-                            <div class="card-text">
+                            <div class="card-text" id="next_blog">
                                 <small class="text-muted">{% if next_blog %}
                                     <a href="{{ next_blog.get_absolute_url }}">Next
                                         blog：{{ next_blog.title }}</a>{% endif %}</small>
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="comments" id="comments">
+        <div class="comments">
             <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
                 <div class="dlh-45">CommList</div>
                 <div class="dlh-40">
@@ -83,11 +83,14 @@
         <div class="comment">
             <form action="{% url 'comment:create-comment' %}" id="comment-form" method="post">
                 {% csrf_token %}
-                {% for filed in form %}
-                    {{ filed }}
-                {% endfor %}
-                <div class="d-flex justify-content-end mr-2"><button type="submit" class="btn btn-dark btn-sm pt-1 pb-1 mt-1 mb-3">comm</button></div>
+                <input type="hidden" name="blog" value="{{ blog.id }}" id="id_blog">
+                <textarea name="content" cols="40" rows="10" id="comment-content" placeholder="What do you want to say to the author"
+                          class="comment-content" maxlength="300" required=""></textarea>
+                <div class="d-flex justify-content-end mr-2">
+                    <button type="submit" class="btn btn-dark btn-sm pt-1 pb-1 mt-1 mb-3">comm</button>
+                </div>
             </form>
+
         </div>
     </div>
 {% endblock %}

@@ -31,7 +31,7 @@
                     <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Blog</a>
+                    <a class="nav-link" href="{% url 'blog:blog-list' %}">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -64,7 +64,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item d-none d-md-block">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'user:user-login' %}?next={{ request.path }}">
                             <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">login</button>
                         </a>
                     </li>
