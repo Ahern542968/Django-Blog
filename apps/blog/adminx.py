@@ -4,10 +4,10 @@ from .models import Blog, BlogTag, BlogType
 
 
 class BlogAdmin(object):
-    list_display = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content', 'date']
-    search_fields = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content']
-    list_filter = ['author', 'blog_type', 'blog_tag']
-    fields = ['blog_type', 'blog_tag', 'title', 'content']
+    list_display = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content', 'date', 'is_top']
+    search_fields = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content', 'is_top']
+    list_filter = ['author', 'blog_type', 'blog_tag', 'is_top']
+    fields = ['blog_type', 'blog_tag', 'title', 'content', 'is_top']
     # filter_horizontal = ['blog_tag']
     # date_hierarchy = 'date'
 

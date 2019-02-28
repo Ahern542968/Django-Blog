@@ -25,3 +25,5 @@ class CommentView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('blog:blog-detail', args=[str(self.object.blog.id)]) + '#next_blog'
+
+

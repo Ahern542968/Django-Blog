@@ -17,8 +17,9 @@
                         Recommend
                     </h5>
                     <div class="card-text">
-                        <p class="p-auto"><a href="#">it's my second blog-site, i will record result of self-study</a></p>
-                        <p class="p-auto"><a href="#">my site build in python</a></p>
+                        {% for recommend in recommends %}
+                            <p class="p-auto"><a href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a></p>
+                        {% endfor %}
                     </div>
                     <br>
                     <div class="dropdown-divider"></div>

@@ -59,3 +59,4 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ("username", 'email')
         field_classes = {'username': UsernameField, 'email': EmailField}
+

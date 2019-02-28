@@ -10,9 +10,11 @@ User = get_user_model()
 class BlogType(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
+    STATUS_HIDDEN = 2
     STATUS_ITEMS = (
         (STATUS_NORMAL, '正常'),
         (STATUS_DELETE, '删除'),
+        (STATUS_HIDDEN, '隐藏'),
     )
 
     name = models.CharField(max_length=15, verbose_name='博客分类')
@@ -30,9 +32,11 @@ class BlogType(models.Model):
 class BlogTag(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
+    STATUS_HIDDEN = 2
     STATUS_ITEMS = (
         (STATUS_NORMAL, '正常'),
         (STATUS_DELETE, '删除'),
+        (STATUS_HIDDEN, '隐藏'),
     )
     name = models.CharField(max_length=15, verbose_name='博客标签')
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
