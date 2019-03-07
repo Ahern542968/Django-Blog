@@ -14,46 +14,69 @@
                 <div class="card-body pl-3 pr-3 ">
                     <h5 class="card-title">
                         <span class="glyphicon glyphicon-book"></span>
-                        Recommend
+                        Latest Blogs
                     </h5>
                     <div class="card-text">
-                        {% for recommend in recommends %}
-                            <p class="p-auto"><a href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a></p>
-                        {% endfor %}
+                        {% if latest_blogs %}
+                            {% for latest_blog in latest_blogs %}
+                                <p class="p-auto"><a
+                                        href="{% url 'blog:blog-detail' latest_blog.id %}">{{ latest_blog.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No update</p>
+                        {% endif %}
                     </div>
-                    <br>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider pt-2 pb-2"></div>
                     <h5 class="card-title">
                         <span class="glyphicon glyphicon-book"></span>
-                        May you like
+                        Recommends
                     </h5>
                     <div class="card-text">
-                        <p class="p-auto"><a href="#">site's front frame use bootstrap 4.0</a></p>
-                        <p class="p-auto"><a href="#">site's backend frame use django</a></p>
+                        {% if recommends %}
+                            {% for recommend in recommends %}
+                                <p class="p-auto"><a
+                                        href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No recommendation</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="in-right col-md-3 col-xs-12 d-md-none">
             <div class="card mb-3">
-                <div class="card-body pl-3 pr-3">
+                <div class="card-body pl-3 pr-3 ">
                     <h5 class="card-title">
                         <span class="glyphicon glyphicon-book"></span>
-                        Recommend
+                        Latest Blogs
                     </h5>
                     <div class="card-text">
-                        <p class="p-auto"><a href="#">it's my second blog-site, i will record result of self-study</a></p>
-                        <p class="p-auto"><a href="#">my site build in python</a></p>
+                        {% if latest_blogs %}
+                            {% for latest_blog in latest_blogs %}
+                                <p class="p-auto"><a
+                                        href="{% url 'blog:blog-detail' latest_blog.id %}">{{ latest_blog.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No update</p>
+                        {% endif %}
                     </div>
-                    <br>
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider pt-2 pb-2"></div>
                     <h5 class="card-title">
                         <span class="glyphicon glyphicon-book"></span>
-                        May you like
+                        Recommends
                     </h5>
                     <div class="card-text">
-                        <p class="p-auto"><a href="#">site's front frame use bootstrap 4.0</a></p>
-                        <p class="p-auto"><a href="#">site's backend frame use django</a></p>
+                        {% if recommends %}
+                            {% for recommend in recommends %}
+                                <p class="p-auto"><a
+                                        href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a></p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No recommendation</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -15,9 +15,14 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.sitemaps import views as sitemap_views
 
 import xadmin
 from xadmin.plugins import xversion
+
+from blog.sitemap import BlogSitemap
 
 
 xversion.register_models()
@@ -26,7 +31,9 @@ xadmin.autodiscover()
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('sitemap.xml/', sitemap_views.sitemap, {'sitemaps': {'blogs': BlogSitemap}}),
     path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path('comment/', include(('comment.urls', 'comment'), namespace='comment')),
     path('user/', include(('user.urls', 'user'), namespace='user')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

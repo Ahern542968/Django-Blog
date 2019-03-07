@@ -30,7 +30,7 @@
                                 <button class="btn btn-secondary dropdown-toggle sort-buttom" type="button"
                                         id="sort-by-view" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                    view
+                                    views
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sort-by-view">
                                     <button class="dropdown-item" type="button">more to less</button>
@@ -44,7 +44,7 @@
                                         id="sort-by-comment" data-toggle="dropdown"
                                         aria-haspopup="true"
                                         aria-expanded="false">
-                                    comment
+                                    comments
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sort-by-comment">
                                     <button class="dropdown-item" type="button">more to less</button>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="tag-items">
-                        <label class="tag-item"><input type="checkbox" checked value="false">all&nbsp;({{ blog_num }})&nbsp;</label>
+                        <label class="tag-item"><input type="checkbox" checked value="false">all&nbsp;({{ blog_nums }})&nbsp;</label>
                         {% for tag in tag_list %}
                             <label class="tag-item"><input type="checkbox" value="false">{{ tag.name }}&nbsp;({{ tag.get_blog_num }})&nbsp;</label>
                         {% endfor %}
@@ -74,7 +74,7 @@
                 <div class="card {% if not forloop.last %}mb-0{% else %}mb-3{% endif %}">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h5>
-                        <p class="card-text">{{ blog.content | truncatewords:"50" }}</p>
+                        <p class="card-text">{{ blog.content | truncatewords:"140" | safe }}</p>
                         <div class="dropdown-divider"></div>
                         <p class="card-text">
                             <small class="text-muted">
@@ -82,11 +82,11 @@
                                 <span class="glyphicon glyphicon-time"></span>
                                 <span>{{ blog.date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</span>
                                 <span class="glyphicon glyphicon-eye-open"></span>
-                                <span>{{ blog.view }}&nbsp;&nbsp;</span>
+                                <span>{{ blog.views }}&nbsp;&nbsp;</span>
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
                                 <span class="glyphicon glyphicon-comment"></span>
-                                <span>{{ blog.comm }}&nbsp;&nbsp;</span>
+                                <span>{{ blog.comms }}&nbsp;&nbsp;</span>
                                 {% for tag in blog.blog_tag.all %}
                                     <span class="glyphicon glyphicon-tag"></span>
                                     <a href="?tag={{ tag }}"><span>{{ tag }}&nbsp;&nbsp;</span></a>
@@ -104,7 +104,7 @@
                 <div class="card {% if not forloop.last %}mb-0{% else %}mb-3{% endif %}">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h5>
-                        <p class="card-text">{{ blog.content | truncatewords:"50" }}</p>
+                        <p class="card-text">{% autoescape off %}{{ blog.content | truncatewords:"140" }}{% endautoescape %}</p>
                         <div class="dropdown-divider"></div>
                         <p class="card-text">
                             <small class="text-muted">
@@ -113,11 +113,11 @@
                                     <span class="glyphicon glyphicon-time"></span>
                                     <span>{{ blog.date | date:'Y-m-d H:i' }}&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-eye-open"></span>
-                                    <span>{{ blog.view }}&nbsp;&nbsp;</span>
+                                    <span>{{ blog.views }}&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span>{{ blog.like_num }}&nbsp;&nbsp;</span>
+                                    <span>{{ blog.like_nums }}&nbsp;&nbsp;</span>
                                     <span class="glyphicon glyphicon-comment"></span>
-                                    <span>{{ blog.comm }}&nbsp;&nbsp;</span>
+                                    <span>{{ blog.comms }}&nbsp;&nbsp;</span>
                                 </span>
                                 <span class="tag-span">
                                     {% for tag in blog.blog_tag.all %}

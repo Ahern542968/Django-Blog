@@ -1,13 +1,16 @@
 import xadmin
 
 from .models import Blog, BlogTag, BlogType
+from .adminforms import BlogAdminForm
 
 
 class BlogAdmin(object):
-    list_display = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content', 'date', 'is_top']
+    form = BlogAdminForm
+    list_display = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content',
+                    'like_num', 'views', 'comms', 'date', 'is_top']
     search_fields = ['id', 'author', 'blog_type', 'blog_tag', 'title', 'content', 'is_top']
     list_filter = ['author', 'blog_type', 'blog_tag', 'is_top']
-    fields = ['blog_type', 'blog_tag', 'title', 'content', 'is_top']
+    fields = ['blog_type', 'blog_tag', 'title', 'author', 'content', 'is_top']
     # filter_horizontal = ['blog_tag']
     # date_hierarchy = 'date'
 

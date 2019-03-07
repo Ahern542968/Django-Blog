@@ -18,7 +18,7 @@
                        autocapitalize="off" autofocus="autofocus" required="">
                 <label for="id_password" class="d-flex justify-content-between">
                     <span>Password</span>
-                    <a class="label-link" href="/password_reset">Forgot password?</a>
+                    <a class="label-link" href="#">Forgot password?</a>
                 </label>
                 <input type="password" name="password" id="id_password" class="form-control form-control input-block"
                        tabindex="2" required="">
@@ -27,8 +27,8 @@
             </div>
         </form>
         <p class="create-account mt-3">
-            New to MyBlog?
-            <a data-ga-click="Sign in, switch to sign up" href="/join?source=login">Create an account</a>.
+            New to my blog?
+            <a data-ga-click="Sign in, switch to sign up" href="{% url 'user:user-register' %}">Create an account</a>.
         </p>
     </div>
 {% endblock %}

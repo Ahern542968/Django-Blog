@@ -2,13 +2,13 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.views.generic.base import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetConfirmView
 from django.views.generic.edit import FormView
 from django.urls import resolve
 from django.http import HttpResponseRedirect
 
 from DjangoBlog.settings import LOGIN_REDIRECT_URL
-from .forms import UserLoginForm, UserRegisterForm
+from .forms import UserLoginForm, UserRegisterForm, UserResetPasswordForm
 from .models import UserActiveCode
 from utils.send_mail import send_html_email, generate_active_code
 # Create your views here.
@@ -72,3 +72,13 @@ class UserActiveView(TemplateView):
         else:
             context['title'] = 'Your account activation link has expired.'
         return context
+
+
+class UserResetPasswordView(PasswordResetConfirmView):
+    form_class = UserResetPasswordForm
+    template_name = 'user/user-reset.html'
+    success_url = 'blog:blog-detail'
+
+
+class UserLogoutView(LogoutView):
+    next_page = LOGIN_REDIRECT_URL

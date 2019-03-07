@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.db.models import F
 
 # Create your models here.
 
@@ -42,15 +43,15 @@ class BlogTag(models.Model):
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
     date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
-    def get_blog_num(self):
-        return self.blog_set.all().count()
-
     class Mate:
         verbose_name = '博客标签'
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
+
+    def get_blog_num(self):
+        return self.blog_set.all().count()
 
 
 class Blog(models.Model):
@@ -70,12 +71,9 @@ class Blog(models.Model):
     is_top = models.BooleanField(default=False, verbose_name='是否推荐')
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
     like_num = models.IntegerField(default=0, verbose_name='点赞数量')
-    view = models.IntegerField(default=0, verbose_name='阅读数量')
-    comm = models.IntegerField(default=0, verbose_name='评论数量')
+    views = models.IntegerField(default=0, verbose_name='阅读数量')
+    comms = models.IntegerField(default=0, verbose_name='评论数量')
     date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-
-    def get_absolute_url(self):
-        return reverse('blog:blog-detail', args=[str(self.id)])
 
     class Mate:
         verbose_name = '博客标签'
@@ -84,3 +82,23 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def tags(self):
+        return ', '.join(self.blog_tag.values_list('name', flat=True))
+
+    def add_views(self):
+        self.__class__.objects.filter(pk=self.id).update(views=F('views') + 1)
+
+    def add_comms(self):
+        self.__class__.objects.filter(pk=self.id).update(comms=F('comms') + 1)
+
+    @classmethod
+    def get_top_blogs(cls):
+        cls.objects.filter(status=Blog.STATUS_NORMAL).filter(is_top=True)[:5].only('title', 'id')
+
+    @classmethod
+    def get_latest_blogs(cls):
+        cls.objects.filter(status=Blog.STATUS_NORMAL).order_by('-date')[:5].only('title', 'id')
+
+    def get_absolute_url(self):
+        return reverse('blog:blog-detail', args=[str(self.id)])

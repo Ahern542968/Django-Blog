@@ -20,6 +20,7 @@ class CommentView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
+        self.object.blog.add_comms()
         self.object.save()
         return super().form_valid(form)
 
@@ -27,3 +28,10 @@ class CommentView(LoginRequiredMixin, CreateView):
         return reverse('blog:blog-detail', args=[str(self.object.blog.id)]) + '#next_blog'
 
 
+class LatestCommentViewMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'latest_comments': Comment.objects.filter(status=Comment.STATUS_NORMAL).order_by('-date')[:5]
+        })
+        return context

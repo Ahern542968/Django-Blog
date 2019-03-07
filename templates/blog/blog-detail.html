@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block left_css %}
     <link href="{% static 'css/blog/blog-detail.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/highlight/highlight-9.15.6.min.css' %}">
 {% endblock %}
 
 {% block title %}blog detail{% endblock %}
@@ -30,13 +31,16 @@
                                 <a href="{% url 'blog:blog-list' %}?tag={{ tag }}">{{ tag }}&nbsp;&nbsp;</a>
                             {% endfor %}
                         </div>
-                        <div class="dib-fsm">view：{{ blog.view }}&nbsp;&nbsp;</div>
-                        <div class="dib-fsm">comm：{{ blog.comm }}&nbsp;&nbsp;</div>
+                        <div class="dib-fsm">views：{{ blog.views }}&nbsp;&nbsp;</div>
+                        <div class="dib-fsm">comms：{{ blog.comms }}&nbsp;&nbsp;</div>
                         <div class="dib-fsm glyphicon glyphicon-thumbs-up"></div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                        content.</p>
+                    <p class="card-text">
+                        {% autoescape off %}
+                            {{ blog.content }}
+                        {% endautoescape %}
+                    </p>
                     <div class="card-text">
                         <div class="card-body pb-0 pt-0 pl-2">
                             <div class="dropdown-divider"></div>
@@ -95,4 +99,7 @@
     </div>
 {% endblock %}
 
-{% block extend_js %}{% endblock %}
+{% block extend_js %}
+    <script src="{% static 'js/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad()</script>
+{% endblock %}
