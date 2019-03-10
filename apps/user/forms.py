@@ -40,7 +40,8 @@ class UserLoginForm(AuthenticationForm):
 
 class UserRegisterForm(UserCreationForm):
     error_messages = {
-        'password_mismatch': "The two password fields didn't match."
+        'password_mismatch': "The two password fields didn't match.",
+        'email_exists': 'email already existed.'
     }
     password1 = forms.CharField(
         label="Password",
@@ -62,7 +63,7 @@ class UserRegisterForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exits():
+        if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
                 self.error_messages['email_exists'],
                 code='email_exists',

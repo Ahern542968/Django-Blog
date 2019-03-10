@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block extend_css %}
+    <link href="{% static 'css/user/user-register.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+    <div class="auth-form px-3" id="register">
+        <form action="#" accept-charset="UTF-8" method="post">
+            {% csrf_token %}
+            <div class="auth-form-header p-0">
+                <h1>Welcome to Sign up</h1>
+            </div>
+            <div class="auth-form-body mt-3">
+                <label for="id_username" class="d-flex mt-2">
+                    Username
+                </label>
+                <input type="text" name="username" id="id_username" class="form-control input-block mb-0" tabindex="1"
+                       autocapitalize="off" autofocus="autofocus" required="">
+                {% if form.username.errors %}<span class="small text-danger">{{ form.username.errors.as_text }}</span>{% endif %}
+
+                <label for="id_email" class="d-flex mt-2">
+                    Email address
+                </label>
+                <input type="email" name="email" id="id_email" class="form-control input-block mb-0" tabindex="2"
+                       autocapitalize="off" autofocus="autofocus" required="">
+                {% if form.email.errors %}<span class="small text-danger">{{ form.email.errors.as_text }}</span>{% endif %}
+
+                <label for="id_password1" class="d-flex mt-2">
+                    <span>Password</span>
+                </label>
+                <input type="password" name="password1" id="id_password1" class="form-control form-control input-block mb-0"
+                       tabindex="3" required="">
+                <label for="id_password2" class="d-flex mt-2">
+                    <span>Password confirmation</span>
+                </label>
+                <input type="password" name="password2" id="id_password2" class="form-control form-control input-block mb-0"
+                       tabindex="4" required="">
+                {% if form.password2.errors %}<span class="small text-danger">{{ form.password2.errors.as_text }}</span>{% endif %}
+
+                <input type="submit" name="commit" value="Sign up" tabindex="3" class="btn btn-info btn-block"
+                       data-disable-with="Signing up">
+            </div>
+        </form>
+        <p class="create-account mt-3">
+            I already have an account.
+            <a data-ga-click="Sign up, switch to sign in" href="{% url 'user:user-login' %}">Go to login</a>.
+        </p>
+    </div>
+{% endblock %}

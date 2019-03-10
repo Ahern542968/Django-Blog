@@ -14,3 +14,9 @@ class UserAuthBackend(ModelBackend):
                 return user
         except ObjectDoesNotExist:
             return None
+
+    def user_can_authenticate(self, user):
+        """
+        always return True, so we can control is_active by if email is active
+        """
+        return True

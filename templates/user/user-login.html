@@ -1,14 +1,22 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
 {% block extend_css %}
-    <link href="{% static 'css/user/login.css' %}" rel="stylesheet">
+    <link href="{% static 'css/user/user-login.css' %}" rel="stylesheet">
 {% endblock %}
 {% block main %}
     <div class="auth-form px-3" id="login">
-        <form action="{% url 'user:user-login' %}?next={{ request.get_full_path | slice:'18:' }}" accept-charset="UTF-8" method="post">
+        <form action="{% url 'user:user-login' %}?next={{ request.get_full_path | slice:'18:' }}" accept-charset="UTF-8"
+              method="post">
             {% csrf_token %}
             <div class="auth-form-header p-0">
                 <h1>Welcome to Sign in</h1>
+                {% if form.non_field_errors %}
+                    <div class="has-error">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <div class="auth-form-body mt-3">
                 <label for="id_username" class="d-flex">

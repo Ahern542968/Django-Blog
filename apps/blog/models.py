@@ -93,8 +93,8 @@ class Blog(models.Model):
         self.__class__.objects.filter(pk=self.id).update(comms=F('comms') + 1)
 
     @classmethod
-    def get_top_blogs(cls):
-        cls.objects.filter(status=Blog.STATUS_NORMAL).filter(is_top=True)[:5].only('title', 'id')
+    def get_topped_blogs(cls):
+        cls.objects.filter(status=Blog.STATUS_NORMAL, is_top=True)[:5].only('title', 'id')
 
     @classmethod
     def get_latest_blogs(cls):

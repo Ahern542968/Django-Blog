@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block extend_css %}
+    <link href="{% static 'css/blog/blog-detail.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-sm-12 justify-content-center">
+            <div class="user-info">
+                <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
+                    <div class="dlh-45">Personal info</div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body info-items pb-2">
+                        <div>Username：{% if request.user.nickname %}{{ request.user.nickname }}{% else %}
+                            {{ request.user.username }}{% endif %}</div>
+                        <div>
+                            <a href="#">change nickname</a>，
+                            <a href="#">change password</a>
+                        </div>
+                        <div>Email：{{ request.user.email }}{% if user.is_active %}（activated）{% else %}
+                            （inactivated）{% endif %}</div>
+                        {% if not request.user.is_active %}
+                            <div><a href="{% url 'user:blind-email' %}">Click to send verification email</a></div>{% endif %}
+                        <div>Registration time：{{ request.user.date | date:"Y-m-d H:i" }}</div>
+                        <div>Last login：{{ request.user.last_login | date:"Y-m-d H:i" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-sm-12 justify-content-center">
+            <div class="user-message">
+                <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
+                    <div class="dlh-45">Personal message</div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body info-items pb-2">
+                        No news yet
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
+
+{% block extend_js %}
+    <script>
+
+    </script>
+{% endblock %}

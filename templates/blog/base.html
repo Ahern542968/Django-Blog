@@ -50,14 +50,18 @@
                 </li>
             </ul>
             <ul class="navbar-nav pull-right">
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="user_info"
                            data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            {% if user.nickname %}{{ user.nickname }}{% else %}{{ user.username }}{% endif %}</a>
+                            {% if user.nickname %}{{ request.user.nickname }}{% else %}{{ request.user.username }}{% endif %}</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="user_info">
-                            <a class="dropdown-item" href="#">person center</a>
+                            <a class="dropdown-item" href="{% url 'user:user-center' %}">person center</a>
+                            {% if user.is_superuser %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/xadmin/">xadmin</a>
+                            {% endif %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'user:user-logout' %}">logout</a>
                         </div>

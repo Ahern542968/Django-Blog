@@ -13,7 +13,7 @@ class RecommendViewMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'recommends': Blog.get_top_blogs()
+            'recommends': Blog.get_topped_blogs()
         })
         return context
 

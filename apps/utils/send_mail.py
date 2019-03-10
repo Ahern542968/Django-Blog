@@ -26,7 +26,7 @@ class SendHtmlEmail(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        msg = EmailMessage(self.subject, self.html_content, self.send_from, self.to_list)
+        msg = EmailMessage(self.subject, self.html_content, self.send_from, [self.to_list])
         msg.content_subtype = "html"
         msg.send(self.fail_silently)
 
