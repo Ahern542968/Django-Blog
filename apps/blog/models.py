@@ -93,12 +93,16 @@ class Blog(models.Model):
         self.__class__.objects.filter(pk=self.id).update(comms=F('comms') + 1)
 
     @classmethod
+    def get_blog_num(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).count()
+
+    @classmethod
     def get_topped_blogs(cls):
-        cls.objects.filter(status=Blog.STATUS_NORMAL, is_top=True)[:5].only('title', 'id')
+        return cls.objects.filter(status=cls.STATUS_NORMAL, is_top=True)[:5].only('title', 'id')
 
     @classmethod
     def get_latest_blogs(cls):
-        cls.objects.filter(status=Blog.STATUS_NORMAL).order_by('-date')[:5].only('title', 'id')
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-date')[:5].only('title', 'id')
 
     def get_absolute_url(self):
         return reverse('blog:blog-detail', args=[str(self.id)])

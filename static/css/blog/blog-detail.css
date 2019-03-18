@@ -1,6 +1,10 @@
 /* blog detail page CSS
 -------------------------------------------------- */
 
+textarea {
+    overflow: auto;
+}
+
 .blog-title {
     color: #0d56a6;
 }
@@ -31,5 +35,9 @@
     line-height: 22px;
     box-sizing: border-box;
     transition: height .3s ease-in-out;
+}
+
+.comment-content.open {
+    height: 80px;
 }
 

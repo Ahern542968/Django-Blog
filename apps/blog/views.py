@@ -5,7 +5,7 @@ from django.core.cache import cache
 
 from .models import Blog, BlogTag
 from comment.forms import CommentForm
-from comment.views import LatestCommentViewMixin
+from comment.models import Comment
 # Create your views here.
 
 
@@ -31,7 +31,7 @@ class RightPartViewMixin(RecommendViewMixin, LatestBlogViewMixin):
     pass
 
 
-class BlogListView(RightPartViewMixin, LatestCommentViewMixin, ListView):
+class BlogListView(RightPartViewMixin, ListView):
     model = Blog
     context_object_name = 'blog_list'
     template_name = 'blog/blog-list.html'
@@ -39,29 +39,35 @@ class BlogListView(RightPartViewMixin, LatestCommentViewMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(status=Blog.STATUS_NORMAL)
-        tags = self.request.GET.getlist('tag')
+        tags = self._check_tags(self.request.GET.getlist('tag'))
+        sf = self._check_sf(self.request.GET.get('sf', '-date'))
         if not tags:
-            return queryset.order_by('-date')
-        sf = self.request.GET.get('sf', '-date')
-        return self._get_sf_queryset(queryset, tags, sf)
+            return queryset.order_by(sf)
+        return queryset.filter(blog_tag__name__in=tags).order_by(sf)
 
     @staticmethod
-    def _get_sf_queryset(queryset, tags, sf):
+    def _check_sf(sf):
         if sf not in ['date', '-date', 'views', '-views', 'comms', '-comms']:
             sf = '-date'
-        tags_name = [tag.name for tag in BlogTag.objects.filter(status=BlogTag.STATUS_NORMAL).only('name')]
-        tags = [tag for tag in tags if tag in tags_name]
-        return queryset.filter(blog_tag__name__in=tags).order_by(sf)
+        return sf
+
+    @staticmethod
+    def _check_tags(tags):
+        if tags:
+            tags_name = [tag.name for tag in BlogTag.objects.filter(status=BlogTag.STATUS_NORMAL).only('name')]
+            tags = [tag for tag in tags if tag in tags_name]
+        return tags
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tag_list'] = BlogTag.objects.filter(status=BlogTag.STATUS_NORMAL).only('name')
-        context['blog_num'] = self.get_queryset().count()
-        context['tags'] = self.request.GET.getlist('tag')
+        context['blog_num'] = self.model.get_blog_num()
+        context['tags'] = self._check_tags(self.request.GET.getlist('tag'))
+        context['sf'] = self._check_sf(self.request.GET.get('sf', ''))
         return context
 
 
-class BlogDetailView(RecommendViewMixin, LatestBlogViewMixin, LatestCommentViewMixin, DetailView):
+class BlogDetailView(RightPartViewMixin, DetailView):
     model = Blog
     queryset = Blog.objects.filter(status=Blog.STATUS_NORMAL)
     context_object_name = 'blog'
@@ -87,8 +93,9 @@ class BlogDetailView(RecommendViewMixin, LatestBlogViewMixin, LatestCommentViewM
         context = super().get_context_data(**kwargs)
         context['prev_blog'] = self.queryset.filter(id__lt=self.object.id).order_by('-id').first()
         context['next_blog'] = self.queryset.filter(id__gt=self.object.id).order_by('id').first()
-        context['comments'] = self.object.comment_set.all()
-        context['form'] = CommentForm(initial={'blog': self.object})
+        context['comments'] = self.object.comment_set.\
+            filter(status=Comment.STATUS_NORMAL, r_comment=None).order_by('-date')
+        context['form'] = CommentForm(initial={'blog': self.object, 'p_comment_id': 0})
         return context
 
 

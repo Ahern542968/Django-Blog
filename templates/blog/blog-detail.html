@@ -63,38 +63,50 @@
             <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
                 <div class="dlh-45">CommList</div>
                 <div class="dlh-40">
-                    <button class="btn btn-outline-success btn-sm my-2 my-sm-0 " type="submit">I wanna comm</button>
+                    <button class="btn btn-outline-success btn-sm my-2 my-sm-0 " type="button" id="I-wanna-comm">
+                        I wanna comm
+                    </button>
                 </div>
             </div>
             <div class="card mb-3">
                 <div class="card-body comm-items pb-2">
                     {% for comment in comments %}
-                        <div class="comm-item">
-                            <div class="comm-user">{{ comment.user.username }}</div>
-                            <div class="comm-body pl-5">{{ comment.content }}</div>
-                            <div class="comm-footer pt-1 pb-1" style="text-align: right">
-                                <span>#{{ forloop.counter }}&nbsp;</span>
-                                <span>{{ comment.date | date:'Y-m-d H:i' }}&nbsp;</span>
-                                <a href=""><span>reply</span></a>
-                            </div>
+                        <div id='root_{{ comment.pk }}' class="comm-item">
+                            <span {% ifequal comment.c_user.id blog.author.id %}class="text-danger"{% endifequal %}>{{ comment.c_user.username }}</span>
+                            <span>({{ comment.date | date:"Y-m-d H:i" }}):</span>
+                            <div id="comment_{{ comment.id }}">{{ comment.content }}&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                    href="javascript:reply({{ comment.pk }});">回复</a></div>
+                            {% for reply in comment.root_comment.all %}
+                                <span class="pl-5 text-muted">-----------------------------------------------</span>
+                                <div class="reply pl-5">
+                                    <span {% ifequal reply.c_user.id blog.author.id %}class="text-danger"{% endifequal %}>{{ reply.c_user.username }}</span>
+                                    <span>({{ comment.date | date:"Y-m-d H:i" }}):</span>
+                                    <span>回复</span>
+                                    <span {% ifequal reply.r_user.id blog.author.id %}class="text-danger"{% endifequal %}>{{ reply.r_user.username }}</span>
+                                    <div id="comment_{{ reply.id }}">{{ reply.content }}&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                            href="javascript:reply({{ reply.id }})">回复</a></div>
+                                </div>
+                            {% endfor %}
                         </div>
-                        {% if not forloop.last %}
-                            <div class="dropdown-divider"></div>{% endif %}
+                        <div class="dropdown-divider"></div>
+                    {% empty %}
+                        <span id="no_comment">暂无评论</span>
                     {% endfor %}
                 </div>
             </div>
         </div>
         <div class="comment">
-            <form action="{% url 'comment:create-comment' %}" id="comment-form" method="post">
+            <form action="{% url 'comment:create-comment' %}" id="comment-form" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="blog" value="{{ blog.id }}" id="id_blog">
-                <textarea name="content" cols="40" rows="10" id="comment-content" placeholder="What do you want to say to the author"
-                          class="comment-content" maxlength="300" required=""></textarea>
-                <div class="d-flex justify-content-end mr-2">
-                    <button type="submit" class="btn btn-dark btn-sm pt-1 pb-1 mt-1 mb-3">comm</button>
+                {% for field in form %}
+                    {{ field }}
+                {% endfor %}
+                <div class="d-flex justify-content-between mr-2">
+                    <span id="comment-tips" class="text-danger pull-left"></span>
+                    <button type="submit" class="btn btn-dark btn-sm pt-1 pb-1 mt-1 mb-3" id="submit-comment">comm
+                    </button>
                 </div>
             </form>
-
         </div>
     </div>
 {% endblock %}
@@ -102,4 +114,8 @@
 {% block extend_js %}
     <script src="{% static 'js/highlight/highlight.pack.js' %}"></script>
     <script>hljs.initHighlightingOnLoad()</script>
+    <script src="{% static 'js/blog/blog-detail.js' %}"></script>
+    <script>
+
+    </script>
 {% endblock %}

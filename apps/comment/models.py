@@ -15,16 +15,20 @@ class Comment(models.Model):
         (STATUS_DELETE, '删除'),
     )
 
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='博客')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户')
-    content = models.CharField(max_length=300, verbose_name='内容')
-    # parent_com = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, verbose_name='父评论')
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, verbose_name='博客')
+    content = models.CharField(max_length=300, verbose_name='内容')
+    c_user = models.ForeignKey(User, related_name='comment_user', on_delete=models.CASCADE, verbose_name='评论')
+    r_comment = models.ForeignKey('self', related_name='root_comment', null=True, blank=True,
+                                  on_delete=models.CASCADE, verbose_name='根评论')
+    p_comment = models.ForeignKey('self', related_name='parent_comment', null=True, blank=True,
+                                  on_delete=models.CASCADE, verbose_name='父评论')
+    r_user = models.ForeignKey(User, related_name='reply_user', null=True, blank=True,
+                               on_delete=models.CASCADE, verbose_name='回复')
     date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['date']
 
     def __str__(self):
-        return 'content by {} on {}'.format(self.user, self.blog)
-
+        return self.content

@@ -18,6 +18,13 @@ class UserProfile(AbstractUser):
     def __str__(self):
         return self.username
 
+    @property
+    def get_name(self):
+        if self.nickname:
+            return self.nickname
+        else:
+            return self.username
+
 
 class UserActiveCode(models.Model):
     FOR_BLIND_EMAIL = 0
@@ -38,3 +45,5 @@ class UserActiveCode(models.Model):
 
     def __str__(self):
         return '%s %s 验证码 %s' % (self.email, self.send_for, self.code)
+
+

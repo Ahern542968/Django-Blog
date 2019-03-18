@@ -4,7 +4,7 @@ import functools
 
 
 class LRUCacheDict(object):
-    def __init__(self, max_size=1024, expiration=60*5):
+    def __init__(self, max_size=1024, expiration=60*60*24):
         self.max_size = max_size
         self.expiration = expiration
         self._cache = {}
@@ -58,7 +58,7 @@ class LRUCacheDict(object):
                 break
 
 
-def cache_it(max_size=1024, expiration=60*5):
+def cache_it(max_size=1024, expiration=60*60*24):
     CACHE = LRUCacheDict(max_size=max_size, expiration=expiration)
 
     def wrapper(func):

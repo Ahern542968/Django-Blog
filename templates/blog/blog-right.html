@@ -53,15 +53,13 @@
                         Latest Blogs
                     </h5>
                     <div class="card-text">
-                        {% if latest_blogs %}
-                            {% for latest_blog in latest_blogs %}
-                                <p class="p-auto"><a
-                                        href="{% url 'blog:blog-detail' latest_blog.id %}">{{ latest_blog.title }}</a>
-                                </p>
-                            {% endfor %}
-                        {% else %}
+                        {% for latest_blog in latest_blogs %}
+                            <p class="p-auto">
+                                <a href="{% url 'blog:blog-detail' latest_blog.id %}">{{ latest_blog.title }}</a>
+                            </p>
+                        {% empty %}
                             <p>No update</p>
-                        {% endif %}
+                        {% endfor %}
                     </div>
                     <div class="dropdown-divider pt-2 pb-2"></div>
                     <h5 class="card-title">
@@ -69,14 +67,13 @@
                         Recommends
                     </h5>
                     <div class="card-text">
-                        {% if recommends %}
-                            {% for recommend in recommends %}
-                                <p class="p-auto"><a
-                                        href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a></p>
-                            {% endfor %}
-                        {% else %}
+                        {% for recommend in recommends %}
+                            <p class="p-auto">
+                                <a href="{% url 'blog:blog-detail' recommend.id %}">{{ recommend.title }}</a>
+                            </p>
+                        {% empty %}
                             <p>No recommendation</p>
-                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

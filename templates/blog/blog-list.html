@@ -20,8 +20,8 @@
                                     date
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sort-by-date">
-                                    <button class="dropdown-item" type="button">near to far</button>
-                                    <button class="dropdown-item" type="button">far to near</button>
+                                    <button class="dropdown-item" type="button" name="-date" onclick="blog_sort('-date')">near to far</button>
+                                    <button class="dropdown-item" type="button" name="date" onclick="blog_sort('date')">far to near</button>
                                 </div>
                             </div>
                         </div>
@@ -33,8 +33,8 @@
                                     views
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sort-by-view">
-                                    <button class="dropdown-item" type="button">more to less</button>
-                                    <button class="dropdown-item" type="button">less to more</button>
+                                    <button class="dropdown-item" type="button" name="-views" onclick="blog_sort('-views')">more to less</button>
+                                    <button class="dropdown-item" type="button" name="views" onclick="blog_sort('views')">less to more</button>
                                 </div>
                             </div>
                         </div>
@@ -47,8 +47,8 @@
                                     comments
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sort-by-comment">
-                                    <button class="dropdown-item" type="button">more to less</button>
-                                    <button class="dropdown-item" type="button">less to more</button>
+                                    <button class="dropdown-item" type="button" name="-comms" onclick="blog_sort('-comms')">more to less</button>
+                                    <button class="dropdown-item" type="button" name="comms" onclick="blog_sort('comms')">less to more</button>
                                 </div>
                             </div>
                         </div>
@@ -60,11 +60,16 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="tag-items">
-                        <label class="tag-item"><input type="checkbox" checked value="false">all&nbsp;({{ blog_nums }})&nbsp;</label>
-                        {% for tag in tag_list %}
-                            <label class="tag-item"><input type="checkbox" value="false">{{ tag.name }}&nbsp;({{ tag.get_blog_num }})&nbsp;</label>
-                        {% endfor %}
-                        <a href="{% url 'blog:blog-list' %}" class="btn btn-success btn-sm" role="button">clear up</a>
+                        <form action="{% url 'blog:blog-list' %}" id="filter-form" method="get">
+                            <input type="hidden" name="sf" value="{{ sf }}" id="sort_filter">
+                            <input type="checkbox" name="check_all" value="true" id="check_all" {% if not tags %}checked{% endif %}>
+                            <label class="tag-item" for="check_all">all&nbsp;({{ blog_num }})&nbsp;</label>
+                            {% for tag in tag_list %}
+                                <input type="checkbox" name="tag" value="{{ tag.name }}" id="id_{{ tag.id }}" {% if tag.name in tags %}checked{% endif %}>
+                                <label class="tag-item" for="id_{{ tag.id }}">{{ tag.name }}&nbsp;({{ tag.get_blog_num }})&nbsp;</label>
+                            {% endfor %}
+                        </form>
+                        <a href="{% url 'blog:blog-list' %}" class="btn btn-success btn-sm d-none" role="button">clear up</a>
                     </div>
                 </div>
             </div>
@@ -174,4 +179,6 @@
     </div>
 {% endblock %}
 
-{% block extend_js %}{% endblock %}
+{% block extend_js %}
+    <script src="{% static 'js/blog/blog-list.js' %}"></script>
+{% endblock %}
