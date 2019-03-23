@@ -6,32 +6,11 @@ from django.core.cache import cache
 from .models import Blog, BlogTag
 from comment.forms import CommentForm
 from comment.models import Comment
+
 # Create your views here.
 
 
-class RecommendViewMixin:
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'recommends': Blog.get_topped_blogs()
-        })
-        return context
-
-
-class LatestBlogViewMixin:
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'latest_blogs': Blog.get_latest_blogs()
-        })
-        return context
-
-
-class RightPartViewMixin(RecommendViewMixin, LatestBlogViewMixin):
-    pass
-
-
-class BlogListView(RightPartViewMixin, ListView):
+class BlogListView(ListView):
     model = Blog
     context_object_name = 'blog_list'
     template_name = 'blog/blog-list.html'
@@ -67,7 +46,7 @@ class BlogListView(RightPartViewMixin, ListView):
         return context
 
 
-class BlogDetailView(RightPartViewMixin, DetailView):
+class BlogDetailView(DetailView):
     model = Blog
     queryset = Blog.objects.filter(status=Blog.STATUS_NORMAL)
     context_object_name = 'blog'
@@ -99,17 +78,18 @@ class BlogDetailView(RightPartViewMixin, DetailView):
         return context
 
 
-class SearchView(BlogListView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'search': self.request.GET.get('search')
-        })
-        return context
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        search = self.request.GET.get('search', '')
-        if search:
-            queryset = queryset.filter(Q(title__icontains=search) | Q(content__icontains=search))
-        return queryset
+# 原来使用django继承实现, 已改用django-haystack，先注释
+# class SearchView(BlogListView):
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context.update({
+#             'search': self.request.GET.get('search')
+#         })
+#         return context
+#
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         search = self.request.GET.get('search', '')
+#         if search:
+#             queryset = queryset.filter(Q(title__icontains=search) | Q(content__icontains=search))
+#         return queryset

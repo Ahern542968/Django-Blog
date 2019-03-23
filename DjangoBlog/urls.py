@@ -23,6 +23,7 @@ import xadmin
 from xadmin.plugins import xversion
 
 from blog.sitemap import BlogSitemap
+from .views import IndexView
 
 
 xversion.register_models()
@@ -33,6 +34,8 @@ urlpatterns = [
     path('xadmin/', xadmin.site.urls, name='xadmin'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('sitemap.xml/', sitemap_views.sitemap, {'sitemaps': {'blogs': BlogSitemap}}),
+    path('', IndexView.as_view(), name='index'),
+    path('search/', include('haystack.urls')),
     path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
     path('comment/', include(('comment.urls', 'comment'), namespace='comment')),
     path('user/', include(('user.urls', 'user'), namespace='user')),

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 from blog.models import Blog
+from utils.lrucache import redis_cache
 # Create your models here.
 
 User = get_user_model()
@@ -32,3 +33,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+    @classmethod
+    @redis_cache('latest_comments', 60 * 60 * 5)
+    def get_latest_comments(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-date')[:5]

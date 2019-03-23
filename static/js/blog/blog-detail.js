@@ -23,6 +23,7 @@ $('#comment-form').submit(function () {
             if (data['status'] == 'success') {
                 var id_p_comment_id = $('#id_p_comment_id').val();
                 if (id_p_comment_id == 0) {
+                    $("#no_comment").text('');
                     var comment_html = "<div id='root_" + data['root_id'] + "' class=\"comment\">\n<span>" +
                         data['c_user'] + "</span>\n<span>(" + data['date'] + "):</span>\n" +
                         "<div id=\"comment_" + data['id'] + "\">" + data['content'] + "&nbsp;&nbsp;&nbsp;&nbsp;<a\n" +

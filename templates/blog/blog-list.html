@@ -79,7 +79,7 @@
                 <div class="card {% if not forloop.last %}mb-0{% else %}mb-3{% endif %}">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h5>
-                        <p class="card-text">{{ blog.content | truncatewords:"140" | safe }}</p>
+                        <p class="card-text">{{ blog.content|slice:"200"|safe }}</p>
                         <div class="dropdown-divider"></div>
                         <p class="card-text">
                             <small class="text-muted">
@@ -109,7 +109,7 @@
                 <div class="card {% if not forloop.last %}mb-0{% else %}mb-3{% endif %}">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h5>
-                        <p class="card-text">{% autoescape off %}{{ blog.content | truncatewords:"140" }}{% endautoescape %}</p>
+                        <p class="card-text">{% autoescape off %}{{ blog.content|slice:"200" }}{% endautoescape %}</p>
                         <div class="dropdown-divider"></div>
                         <p class="card-text">
                             <small class="text-muted">

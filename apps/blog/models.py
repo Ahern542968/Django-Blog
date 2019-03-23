@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.core.cache import cache
 from django.db.models import F
+
+from utils.lrucache import redis_cache
 
 # Create your models here.
 
@@ -94,24 +95,19 @@ class Blog(models.Model):
         self.__class__.objects.filter(pk=self.id).update(comms=F('comms') + 1)
 
     @classmethod
+    @redis_cache('blog_num', 60*60*5)
     def get_blog_num(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).count()
 
     @classmethod
+    @redis_cache('topped_blogs', 60*60*5)
     def get_topped_blogs(cls):
-        result = cache.get('topped_blogs')
-        if not result:
-            result = cls.objects.filter(status=cls.STATUS_NORMAL, is_top=True)[:5].only('title', 'id')
-            cache.set('topped_blogs', result, 18000)
-        return result
+        return cls.objects.filter(status=cls.STATUS_NORMAL, is_top=True)[:5].only('title', 'id')
 
     @classmethod
+    @redis_cache('latest_blogs', 60*60*5)
     def get_latest_blogs(cls):
-        result = cache.get('latest_blogs')
-        if not result:
-            result = cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-date')[:5].only('title', 'id')
-            cache.set('latest_blogs', result, 18000)
-        return result
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-date')[:5].only('title', 'id')
 
     def get_absolute_url(self):
         return reverse('blog:blog-detail', args=[str(self.id)])

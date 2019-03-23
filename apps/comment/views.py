@@ -71,6 +71,6 @@ class LatestCommentViewMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'latest_comments': Comment.objects.filter(status=Comment.STATUS_NORMAL).order_by('-date')[:5]
+            'latest_comments': Comment.get_latest_comments()
         })
         return context

@@ -10,8 +10,8 @@
 
 {% block blog_left %}
     <div class="in-left col-md-9 col-12">
-        {% with blog.id as blog %}
-            {% cache 18000 detail blog %}
+        {% with blog.id as blog_id %}
+            {% cache 18000 detail blog_id %}
                 <div class="blog">
             <div class="card-header bg-dark text-white pt-0 pb-0 d-flex justify-content-between">
                 <div class="dlh-45">Welcome to correct me</div>

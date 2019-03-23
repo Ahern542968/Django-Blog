@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.conf.global_settings import LOGIN_REDIRECT_URL
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.views.generic.base import TemplateView
@@ -10,6 +9,7 @@ from django.urls import resolve, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login
 
+from DjangoBlog.settings import LOGIN_REDIRECT_URL
 from .forms import UserLoginForm, UserRegisterForm, UserResetPasswordForm
 from .models import UserActiveCode
 from utils.send_mail import send_html_email, generate_active_code

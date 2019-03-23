@@ -1,6 +1,8 @@
 import time
-from collections import OrderedDict
 import functools
+from collections import OrderedDict
+
+from django.core.cache import cache
 
 
 class LRUCacheDict(object):
@@ -70,6 +72,19 @@ def cache_it(max_size=1024, expiration=60*60*24):
             except KeyError:
                 result = func(*args, **kwargs)
                 CACHE[key] = result
+            return result
+        return inner
+    return wrapper
+
+
+def redis_cache(key, timeout):
+    def wrapper(fun):
+        def inner(*args, **kwargs):
+            if cache.get(key):
+                result = cache.get(key)
+            else:
+                result = fun(*args, **kwargs)
+                cache.set(key, result, timeout)
             return result
         return inner
     return wrapper
