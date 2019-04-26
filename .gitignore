@@ -1,2 +1,18 @@
+# Git文件
 .git
+
+# 编辑器缓存
 .idea
+
+# 环境变量
+env.py
+
+# 数据库
+db.sqlite3
+
+# py文件
+__pycache__/
+migrations/
+
+# 用户文件
+media/
