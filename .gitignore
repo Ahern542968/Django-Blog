@@ -12,6 +12,7 @@ db.sqlite3
 
 # py文件
 __pycache__/
+migrations/
 
 # 用户文件
 media/

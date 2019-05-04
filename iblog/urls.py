@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
 import xadmin
 from xadmin.plugins import xversion
 
@@ -27,4 +29,5 @@ xadmin.autodiscover()
 urlpatterns = [
     path('xadmin/', xadmin.site.urls, name='xadmin'),
     path('accounts/', include('allauth.urls')),
+    path('index/', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

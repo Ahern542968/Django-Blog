@@ -17,7 +17,6 @@ xlwt = "*"
 xlsxwriter = "*"
 httplib2 = "*"
 six = "*"
-import-export = "*"
 django-import-export = {index = "https://pypi.tuna.tsinghua.edu.cn/simple",version = "==1.2.0"}
 
 [requires]

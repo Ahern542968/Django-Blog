@@ -58,6 +58,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     # Your stuff: custom apps go here
+    'users.apps.UsersConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -148,8 +149,8 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = (
-    os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
 )
 
 MEDIA_URL = '/media/'
@@ -169,4 +170,5 @@ EMAIL_HOST_USER = env.DJANGO_EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = env.DJANGO_EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = env.DJANGO_DEFAULT_FROM_EMAIL
 
+AUTH_USER_MODEL = 'users.User'
 
