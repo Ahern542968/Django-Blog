@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %}">
     <!-- amchart css -->
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
     <!-- others css -->
     <link rel="stylesheet" href="{% static 'assets/css/typography.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/default-css.css' %}">
@@ -27,143 +27,128 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
+<!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-    <div class="page-container">
-        <!-- sidebar menu area start -->
-        <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <a href="index.html"><img src="{% static 'assets/images/icon/logo.png' %}" alt="logo"></a>
-                </div>
+<!-- preloader area start -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- page container area start -->
+<div class="page-container">
+    <!-- sidebar menu area start -->
+    <div class="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="index.html"><img src="{% static 'assets/images/icon/logo.png' %}" alt="logo"></a>
             </div>
-            <div class="main-menu">
-                <div class="menu-inner">
-                    <nav>
-                        <ul class="metismenu" id="menu">
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-receipt"></i><span>博客</span></a>
-                            </li>
-                        </ul>
-                    </nav>
+        </div>
+        <div class="main-menu">
+            <div class="menu-inner">
+                <nav>
+                    <ul class="metismenu" id="menu">
+                        <li class="active">
+                            <a href="{% url 'blogs:list' %}" aria-expanded="true"><i class="ti-receipt"></i><span>博客</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar menu area end -->
+    <!-- main content area start -->
+    <div class="main-content">
+        <!-- header area start -->
+        <div class="header-area">
+            <div class="row align-items-center">
+                <!-- 搜索栏 -->
+                <div class="col-md-6 col-sm-8 clearfix">
+                    <div class="nav-btn pull-left">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="search-box pull-left">
+                        <form action="#">
+                            <input type="text" name="search" placeholder="Search..." required>
+                            <i class="ti-search"></i>
+                        </form>
+                    </div>
+                </div>
+                <!-- 个人信息和消息等 -->
+                <div class="col-md-6 col-sm-4 clearfix">
+                    <ul class="notification-area pull-right">
+                        <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                        <li class="dropdown">
+                            <i class="ti-bell dropdown-toggle" data-toggle="dropdown"></i>
+                        </li>
+                        <li class="dropdown">
+                            <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"></i>
+                        </li>
+                        <li class="settings-btn">
+                            <i class="ti-settings"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <!-- sidebar menu area end -->
-        <!-- main content area start -->
-        <div class="main-content">
-            <!-- header area start -->
-            <div class="header-area">
-                <div class="row align-items-center">
-                    <!-- 搜索栏 -->
-                    <div class="col-md-6 col-sm-8 clearfix">
-                        <div class="nav-btn pull-left">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="search-box pull-left">
-                            <form action="#">
-                                <input type="text" name="search" placeholder="Search..." required>
-                                <i class="ti-search"></i>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- 个人信息和消息等 -->
-                    <div class="col-md-6 col-sm-4 clearfix">
-                        <ul class="notification-area pull-right">
-                            <li id="full-view"><i class="ti-fullscreen"></i></li>
-                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                            <li class="dropdown">
-                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown"></i>
-                            </li>
-                            <li class="dropdown">
-                                <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"></i>
-                            </li>
-                            <li class="settings-btn">
-                                <i class="ti-settings"></i>
-                            </li>
-                        </ul>
-                    </div>
+        <!-- header area end -->
+        <!-- page title area start -->
+        <div class="page-title-area">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    {% block bread_crumbs %}
+                    {% endblock %}
                 </div>
-            </div>
-            <!-- header area end -->
-            <!-- page title area start -->
-            <div class="page-title-area">
-                <div class="row align-items-center">
-                    <div class="col-sm-6">
-                        {%  block bread_crumbs %}
-                        <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">AhernBlog</h4>
-                            <ul class="breadcrumbs pull-left">
-                                <li><a href="index.html">首页</a></li>
-                                <li><span>博客列表</span></li>
-                            </ul>
-                        </div>
-                        {% endblock %}
-                    </div>
-                    <div class="col-sm-6 clearfix">
-                        <div class="user-profile pull-right">
-                            <img class="avatar user-thumb" src="{% static 'assets/images/author/avatar.png' %}" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">用户名<i class="fa fa-angle-down"></i></h4>
+                <div class="col-sm-6 clearfix">
+                    <div class="user-profile pull-right">
+                        {% if user.is_authenticated %}
+                            <img class="avatar user-thumb" src="{% static 'assets/images/author/avatar.png' %}"
+                                 alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">用户名<i
+                                    class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">未开发</a>
+                                <a href="{% url 'account_email' %}" class="dropdown-item">Change E-mail</a>
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Sign Out</a>
                             </div>
-                        </div>
+                        {% else %}
+                            <h4 class="user-name"><a href="{% url 'account_login' %}">登 录</a></h4>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-            <!-- page title area end -->
-            <div class="main-content-inner">
-                {% block main %}
-                <div class="card-area">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 mt-5">
-                            <div class="card card-bordered">
-                                <img class="card-img-top img-fluid" src="{% static 'assets/images/card/card-img1.jpg' %}" alt="image">
-                                <div class="card-body">
-                                    <h5 class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dicta.</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia adipisci quidem, quam nam reiciendis facere blanditiis atque neque architecto omnis magni totam, voluptate maiores, iusto molestias incidunt unde nesciunt cum.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">阅读全文</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endblock %}
             </div>
         </div>
-        <!-- main content area end -->
-        <!-- footer area start-->
-        <footer>
-            <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
-            </div>
-        </footer>
-        <!-- footer area end-->
+        <!-- page title area end -->
+        <div class="main-content-inner">
+            {% block main %}
+            {% endblock %}
+        </div>
     </div>
-    <!-- page container area end -->
-    <!-- jquery latest version -->
-    <script src="{% static 'assets/js/vendor/jquery-2.2.4.min.js' %}"></script>
-    <!-- bootstrap 4 js -->
-    <script src="{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'assets/js/metisMenu.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.slimscroll.min.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
-    <!-- others plugins -->
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-    <script src="{% static 'assets/js/scripts.js' %}"></script>
-    {% block extra_js %}{% endblock %}
+    <!-- main content area end -->
+    <!-- footer area start-->
+    <footer>
+        <div class="footer-area">
+            <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+        </div>
+    </footer>
+    <!-- footer area end-->
+</div>
+<!-- page container area end -->
+<!-- jquery latest version -->
+<script src="{% static 'assets/js/vendor/jquery-2.2.4.min.js' %}"></script>
+<!-- bootstrap 4 js -->
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/metisMenu.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+<!-- others plugins -->
+<script src="{% static 'assets/js/plugins.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
+{% block extra_js %}{% endblock %}
 </body>
 
 </html>

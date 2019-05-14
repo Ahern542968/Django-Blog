@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 # Create your models here.
 
 
@@ -23,7 +24,7 @@ class User(AbstractUser):
 
 
 class Author(models.Model):
-    author = models.ForeignKey(User, verbose_name='作者', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = '作者信息'

@@ -28,6 +28,8 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls, name='xadmin'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('allauth.urls')),
+    path('blogs/', include(('blogs.urls', 'blogs'), namespace='blogs')),
     path('index/', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

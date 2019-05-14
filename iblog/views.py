@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'base.html')
+    return render(request, 'blogs/blogs_detail.html')
