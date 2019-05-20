@@ -1,12 +1,14 @@
-import json
-
 from django.test import RequestFactory
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import AnonymousUser
 
 from test_plus.test import CBVTestCase
 
 from users.models import Author
 from blogs.models import Tag, Type, Blog
 from blogs.views import BlogDetailView, BlogListView
+from likes.models import Like
+
 
 class BaseTest(CBVTestCase):
     def setUp(self):
@@ -56,7 +58,15 @@ class BaseTest(CBVTestCase):
         self.blog_three.save()
         self.blog_three.tags.add(self.tag_one)
 
+        content_type = ContentType.objects.get(model='blog')
+        self.like = Like.objects.create(
+            user=self.user,
+            content_type=content_type,
+            object_id=self.blog_one.id
+        )
+
         self.request1 = RequestFactory().get('/fake-url')
+        self.request1.user = self.user
 
         self.request2 = RequestFactory().get('/fake-url/?tag=django')
 
@@ -66,12 +76,13 @@ class TestBlogListView(BaseTest):
     def test_context_data(self):
         response1 = self.get(BlogListView, request=self.request1)
         self.assertEquals(response1.status_code, 200)
-        self.assertQuerysetEqual(response1.context_data['blogs'], [repr(self.blog_one), repr(self.blog_two)], ordered=False)
+        self.assertQuerysetEqual(response1.context_data['blogs'], [repr(self.blog_one), repr(self.blog_two)],
+                                 ordered=False)
         self.assertContext('tag', None)
 
         response2 = self.get(BlogListView, request=self.request2)
         self.assertEquals(response2.status_code, 200)
-        self.assertQuerysetEqual(response2.context_data['blogs'], [repr(self.blog_one)],ordered=False)
+        self.assertQuerysetEqual(response2.context_data['blogs'], [repr(self.blog_one)], ordered=False)
         self.assertContext('tag', 'django')
 
         self.assertTrue(zip(response2.context_data['tags_cloud'], [('django', 1), ('leetcode', 2)]))
@@ -83,7 +94,18 @@ class TestBlogDetailView(BaseTest):
     def test_context_data(self):
         response = self.get(BlogDetailView, request=self.request1, pk=self.blog_one.id)
         self.response_200(response)
-        self.assertEqual(response.context_data['blog'], self.blog_one)
+        self.assertContext('blog', self.blog_one)
+        self.assertContext('is_like', True)
+
+        self.like.delete()
+        response = self.get(BlogDetailView, request=self.request1, pk=self.blog_one.id)
+        self.response_200(response)
+        self.assertContext('is_like', False)
+
+        self.request1.user = AnonymousUser()
+        response = self.get(BlogDetailView, request=self.request1, pk=self.blog_one.id)
+        self.response_200(response)
+        self.assertContext('is_like', False)
 
         self.assertTrue(zip(response.context_data['tags_cloud'], [('django', 1), ('leetcode', 2)]))
         self.assertContext('blog_publish_counted', 2)

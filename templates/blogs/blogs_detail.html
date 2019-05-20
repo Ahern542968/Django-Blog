@@ -72,6 +72,21 @@
                 <a href="#">{{ blog.author.author.get_name }}</a>
                 发表于{{ blog.created_at }}
             </p>
+            <div class="interaction" id="interaction">
+                <span class="fa fa-tags mr-2">
+                    {% for tag in blog.tags.all %}
+                        <a href="{% url 'blogs:list' %}?tag={{ tag }}" class="mx-1">{{ tag }}</a>
+                    {% endfor %}
+                </span>
+                <a href="javascipt:void(0);" class="like">
+                    {% if is_like %}
+                        <i class="heart fa fa-heart" aria-hidden="true"></i>
+                    {% else %}
+                        <i class="heart fa fa-heart-o" aria-hidden="true"></i>
+                    {% endif %}
+                    <span class="like-count ml-1">{{ blog.get_like_num }}</span>
+                </a>
+            </div>
             <hr>
             <!-- 文章图片 -->
             {% thumbnail blog.image "1920x1080" as im %}
@@ -83,10 +98,9 @@
             <!-- Post Content -->
             <p class="card-text">{{ blog.content|safe }}</p>
             <hr>
-
         </div>
         <!-- seo fact area end -->
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <!-- 云标签 -->
             <div class="card mt-5">
                 <h5 class="card-header">云标签</h5>
@@ -104,4 +118,41 @@
 {% block extra_js %}
     <script src="{% static 'assets/js/highlight.pack.js' %}"></script>
     <script>hljs.initHighlightingOnLoad()</script>
+    <script>
+        function change_like(object_type, object_id){
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url:"{% url 'likes:change_like' %}",
+                data:{'object_type': object_type, 'object_id': object_id},
+                beforeSend:function(xhr, settings){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $(".like .like-count").text(data['like_num']);
+                        console.log(data['msg']);
+                        if (data['is_like'] == true) {
+                            $(".like .heart").removeClass("fa fa-heart-o");
+                            $(".like .heart").addClass("fa fa-heart");
+                        } else {
+                            $(".like .heart").removeClass("fa fa-heart");
+                            $(".like .heart").addClass("fa fa-heart-o");
+                        }
+                    } else {
+                        if(data['msg'] == '用户未登录'){
+                            window.location.href="{% url 'account_login' %}";
+                        }else{
+                            alert(data['msg'])
+                        }
+                    }
+                },
+            });
+            return false;
+        }
+        $('.like').on('click', function(){
+            change_like('blog', {{ blog.id }});
+        });
+    </script>
+
 {% endblock %}

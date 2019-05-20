@@ -29,14 +29,19 @@
                             <h5 class="title">{{ blog.title }}</h5>
                             <p class="card-text">{{ blog.content|safe }}</p>
                             <div>
-                                <a href="{% url 'blogs:detail' blog.slug %}" class="btn-sm btn-primary">阅读全文</a>
+                                <a href="{% url 'blogs:detail' blog.slug %}" class="btn-sm btn-primary mr-3">阅读全文</a>
                                 <a href="">{{ blog.author.author.get_name }}</a>发表于{{ blog.created_at|naturaltime }}
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            {% for tag in blog.tags.all %}
-                                <a href="{% url 'blogs:list' %}?tag={{ tag }}">{{ tag }}</a>
-                            {% endfor %}
+                            <div class="interaction" id="interaction">
+                                <span class="fa fa-tags mr-2">
+                                    {% for tag in blog.tags.all %}
+                                        <a href="{% url 'blogs:list' %}?tag={{ tag }}" class="mx-1">{{ tag }}</a>
+                                    {% endfor %}
+                                </span>
+                                <i class="heart fa fa-heart-o" aria-hidden="true"><span class="like-count ml-2">{{ blog.get_like_num }}</span></i>
+                            </div>
                         </div>
                     </div>
                 </div>

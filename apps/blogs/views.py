@@ -39,5 +39,19 @@ class BlogDetailView(TagCloudMixin, DetailView):
     model = Blog
     context_object_name = 'blog'
     template_name = 'blogs/blogs_detail.html'
+    is_like = False
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['is_like'] = self.get_is_like()
+        return context
+
+    def get_is_like(self):
+        if self.request.user.is_authenticated:
+            like = self.object.likes.filter(user=self.request.user)
+            if like.exists():
+                self.is_like = True
+        return self.is_like
+
 
 

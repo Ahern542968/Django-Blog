@@ -1,12 +1,16 @@
+from django.contrib.contenttypes.models import ContentType
+
 from test_plus.test import TestCase
 
 from blogs.models import Tag, Type, Blog
 from users.models import Author
+from likes.models import Like
 
 
 class BaseTest(TestCase):
     def setUp(self):
         self.user = self.make_user('user01')
+
         self.author = Author.objects.create(
             author=self.user
         )
@@ -82,3 +86,13 @@ class TestBlog(BaseTest):
 
     def test_save(self):
         self.assertEquals(self.blog_one.slug, 'di-yi-pian-fa-bu-de-wen-zhang')
+
+    def test_get_like_num(self):
+        self.assertEquals(Blog.objects.get(id=1).get_like_num, 0)
+        content_type = ContentType.objects.get(model='blog')
+        self.like = Like.objects.create(
+            user=self.user,
+            content_type=content_type,
+            object_id=1,
+        )
+        self.assertEquals(Blog.objects.get(id=1).get_like_num, 1)

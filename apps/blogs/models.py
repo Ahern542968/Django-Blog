@@ -1,10 +1,12 @@
-import collections
+from collections import defaultdict
 
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
 
 from slugify import slugify
 
 from users.models import Author
+from likes.models import Like
 # Create your models here.
 
 
@@ -52,18 +54,15 @@ class BlogQuerySet(models.query.QuerySet):
 
     def get_tags_cloud(self):
         """统计所有已发布的博客中，每一个标签的数量(大于0的)"""
-        tag_dict = {}
+        tag_dict = defaultdict(int)
         for obj in self.get_publish():
             for tag in obj.tags.all().names():
-                if tag not in tag_dict:
-                    tag_dict[tag] = 1
-                else:
-                    tag_dict[tag] += 1
+                tag_dict[tag] += 1
         return tag_dict.items()
 
 
 class Blog(models.Model):
-    STATUS = (('publish', '发布'), ('draft', '草稿'), ('delete', '删除'))
+    STATUS = (('publish', '发布'), ('draft', '草稿'), ('delete', '删除'), ('diary', '日记'))
     title = models.CharField('标题', max_length=255, unique=True)
     author = models.ForeignKey(Author, verbose_name='作者', null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ImageField('图片', upload_to='blog_imgs/%Y/%m/%d/', null=True, blank=True)
@@ -72,6 +71,7 @@ class Blog(models.Model):
     content = models.TextField('内容')
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     btype = models.ForeignKey(Type, related_name='type', verbose_name='分类', null=True, blank=True, on_delete=models.SET_NULL)
+    likes = GenericRelation(Like, verbose_name='点赞情况')  # 通过GenericRelation关联到Vote表，不是实际的字段
     created_at = models.DateTimeField('创建时间', auto_now_add=True)
     updated_at = models.DateTimeField('更新时间', auto_now=True)
     objects = BlogQuerySet.as_manager()
@@ -84,8 +84,11 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         super().save()
+
+    @property
+    def get_like_num(self):
+        return self.likes.count()
 

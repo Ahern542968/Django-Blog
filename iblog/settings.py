@@ -54,6 +54,8 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # github 登录
+    'allauth.socialaccount.providers.github',
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
@@ -63,6 +65,7 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
+    'likes.apps.LikesConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -78,6 +81,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'iblog.urls'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/blogs/'
 
 TEMPLATES = [
     {
@@ -164,6 +171,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 300
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = False
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Ahern's Blog]"
 
 # email settings
@@ -174,9 +183,6 @@ EMAIL_PORT = env.DJANGO_EMAIL_PORT
 EMAIL_HOST_USER = env.DJANGO_EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = env.DJANGO_EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = env.DJANGO_DEFAULT_FROM_EMAIL
-
-AUTH_USER_MODEL = 'users.User'
-
 
 # Ckeditor
 CKEDITOR_CONFIGS = {
