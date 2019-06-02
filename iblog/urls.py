@@ -20,19 +20,10 @@ from django.conf.urls.static import static
 
 from . import views
 
-import xadmin
-from xadmin.plugins import xversion
-
-xversion.register_models()
-xadmin.autodiscover()
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('xadmin/', xadmin.site.urls, name='xadmin'),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('allauth.urls')),
     path('likes/', include(('likes.urls', 'likes'), namespace='likes')),
     path('blogs/', include(('blogs.urls', 'blogs'), namespace='blogs')),
-    path('notifications/', include(('notifications.urls', 'notifications'), namespace='notifications')),
     path('index/', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

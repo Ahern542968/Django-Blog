@@ -42,14 +42,9 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",  # Handy template tags
 ]
 
 THIRD_PARTY_APPS = [
-    'channels',
-    "xadmin",
-    "crispy_forms",
-    "reversion",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -65,7 +60,6 @@ LOCAL_APPS = [
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
     'likes.apps.LikesConfig',
-    'notifications.apps.NotificationsConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -109,7 +103,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 WSGI_APPLICATION = 'iblog.wsgi.application'
-ASGI_APPLICATION = "iblog.routing.application"
+
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -180,25 +174,3 @@ EMAIL_PORT = env.DJANGO_EMAIL_PORT
 EMAIL_HOST_USER = env.DJANGO_EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = env.DJANGO_EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = env.DJANGO_DEFAULT_FROM_EMAIL
-
-# Ckeditor
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'wight': 1200,
-        'tabSpaces': 4,
-        'extraPlugins': 'codesnippet',
-    },
-}
-CKEDITOR_UPLOAD_PATH = 'blog_img/'
-
-# Channel
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [f'{env.REDIS_URL}/3', ],  # channel layers缓存使用3库
-        },
-    },
-}

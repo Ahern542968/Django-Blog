@@ -1,21 +1,7 @@
 {% extends 'base.html' %}
-{% load staticfiles thumbnail humanize %}
+{% load staticfiles thumbnail %}
 
 {% block extra_css %}
-    <style>
-        .stream-update a {
-            margin-top: 2em;
-            text-align: center;
-            font-size: 1.2em;
-            padding: 0.8em;
-            display: block;
-            background-color: #c8e5bc;
-        }
-        .stream-update a:hover {
-            text-decoration: none;
-            background-color: #f5e79e;
-        }
-    </style>
 {% endblock %}
 {% block title %}博客列表{% endblock %}
 {% block bread_crumbs %}
@@ -87,11 +73,5 @@
         </div>
     </div>
 {% endblock %}
-{% block extra_js %}
-    <script>
-        function hide_stream_update() {
-            $(".stream-update").hide();
-        }
-        hide_stream_update()
-    </script>
+{% block extra_js %
 {% endblock %}
