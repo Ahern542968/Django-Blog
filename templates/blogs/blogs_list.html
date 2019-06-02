@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% load staticfiles thumbnail humanize %}
 
-{% block extra_css %}{% endblock %}
+{% block extra_css %}
+    <style>
+        .stream-update a {
+            margin-top: 2em;
+            text-align: center;
+            font-size: 1.2em;
+            padding: 0.8em;
+            display: block;
+            background-color: #c8e5bc;
+        }
+        .stream-update a:hover {
+            text-decoration: none;
+            background-color: #f5e79e;
+        }
+    </style>
+{% endblock %}
 {% block title %}博客列表{% endblock %}
 {% block bread_crumbs %}
     <div class="breadcrumbs-area clearfix">
@@ -15,19 +30,24 @@
 {% block main %}
     <div class="row">
         <div class="card-area col-md-8 col-xs-12">
+            <!-- 有新的博客更新时 -->
+            <div class="stream-update">
+                <a href="{% url 'blogs:list' %}"><span class="blogs-posts"></span>以下是新的博客</a>
+            </div>
+
+            <!-- 循环遍历博客列表 -->
             {% for blog in blogs %}
-                <div class="mt-5">
+                <div class="mt-5" blog-id="{{ blog.id }}">
                     <div class="card card-bordered">
                         {% thumbnail blog.image "1920x1080" as img %}
                             <img class="card-img-top img-fluid" src="{{ img.url }}" alt="image">
                         {% empty %}
-                            <img class="card-img-top img-fluid" src="http://placehold.it/1920x1080"
-                                 alt="image">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/1920x1080" alt="image">
                         {% endthumbnail %}
 
                         <div class="card-body">
                             <h5 class="title">{{ blog.title }}</h5>
-                            <p class="card-text">{{ blog.content|safe }}</p>
+                            <p class="card-text">{{ blog.content|slice:'250' }}</p>
                             <div>
                                 <a href="{% url 'blogs:detail' blog.slug %}" class="btn-sm btn-primary mr-3">阅读全文</a>
                                 <a href="">{{ blog.author.author.get_name }}</a>发表于{{ blog.created_at|naturaltime }}
@@ -67,4 +87,11 @@
         </div>
     </div>
 {% endblock %}
-{% block extra_js %}{% endblock %}
+{% block extra_js %}
+    <script>
+        function hide_stream_update() {
+            $(".stream-update").hide();
+        }
+        hide_stream_update()
+    </script>
+{% endblock %}

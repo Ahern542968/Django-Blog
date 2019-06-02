@@ -33,5 +33,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('likes/', include(('likes.urls', 'likes'), namespace='likes')),
     path('blogs/', include(('blogs.urls', 'blogs'), namespace='blogs')),
+    path('notifications/', include(('notifications.urls', 'notifications'), namespace='notifications')),
     path('index/', views.index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

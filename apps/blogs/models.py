@@ -1,9 +1,12 @@
 from collections import defaultdict
+import uuid
 
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 
 from slugify import slugify
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 from users.models import Author
 from likes.models import Like
@@ -71,7 +74,7 @@ class Blog(models.Model):
     content = models.TextField('内容')
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     btype = models.ForeignKey(Type, related_name='type', verbose_name='分类', null=True, blank=True, on_delete=models.SET_NULL)
-    likes = GenericRelation(Like, verbose_name='点赞情况')  # 通过GenericRelation关联到Vote表，不是实际的字段
+    likes = GenericRelation(Like, verbose_name='点赞情况')  # 通过GenericRelation关联到Like表，不是实际的字段
     created_at = models.DateTimeField('创建时间', auto_now_add=True)
     updated_at = models.DateTimeField('更新时间', auto_now=True)
     objects = BlogQuerySet.as_manager()
@@ -85,10 +88,20 @@ class Blog(models.Model):
         return self.title
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if not self.slug:
+            channel_layer = get_channel_layer()
+            payload = {
+                'type': 'receive',
+                'key': 'additional_blog',
+                'actor_name': self.author.author.username
+            }
+            async_to_sync(channel_layer.group_send)('notifications', payload)
         self.slug = slugify(self.title)
         super().save()
 
     @property
     def get_like_num(self):
         return self.likes.count()
+
+
 

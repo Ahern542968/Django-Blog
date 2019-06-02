@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load humanize %}
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -23,6 +24,11 @@
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
     <!-- modernizr css -->
     <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    <style>
+        .popover-body {
+            padding: 0;
+        }
+    </style>
     {% block extra_css %}{% endblock %}
 </head>
 
@@ -49,7 +55,8 @@
                 <nav>
                     <ul class="metismenu" id="menu">
                         <li class="active">
-                            <a href="{% url 'blogs:list' %}" aria-expanded="true"><i class="ti-receipt"></i><span>博客</span></a>
+                            <a href="{% url 'blogs:list' %}" aria-expanded="true"><i
+                                    class="ti-receipt"></i><span>博客</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -81,12 +88,15 @@
                     <ul class="notification-area pull-right">
                         <li id="full-view"><i class="ti-fullscreen"></i></li>
                         <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                        <li class="dropdown">
-                            <i class="ti-bell dropdown-toggle" data-toggle="dropdown"></i>
-                        </li>
-                        <li class="dropdown">
-                            <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"></i>
-                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="dropdown">
+                                <i class="ti-bell dropdown-toggle" data-toggle="popover" id="notifications"></i>
+                            </li>
+                        {% else %}
+                            <li class="dropdown">
+                                <i class="btn ti-bell dropdown-toggle" onclick="window.location.href='{% url 'account_login' %}'"></i>
+                            </li>
+                        {% endif %}
                         <li class="settings-btn">
                             <i class="ti-settings"></i>
                         </li>
@@ -122,6 +132,14 @@
         </div>
         <!-- page title area end -->
         <div class="main-content-inner">
+            {% if messages %}
+                {% for message in messages %}
+                    <div id="messages" class="my-1 alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             {% block main %}
             {% endblock %}
         </div>
@@ -148,7 +166,15 @@
 <!-- others plugins -->
 <script src="{% static 'assets/js/plugins.js' %}"></script>
 <script src="{% static 'assets/js/scripts.js' %}"></script>
-{% block extra_js %}{% endblock %}
-</body>
 
+<script type="text/javascript">
+    const currentUser = '{{ request.user.username }}';
+</script>
+
+<script src="{% static 'assets/js/reconnecting-websocket.js' %}"></script>
+<script src="{% static 'assets/js/notifications.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+</body>
 </html>
