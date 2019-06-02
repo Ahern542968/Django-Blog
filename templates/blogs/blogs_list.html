@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles thumbnail %}
+{% load staticfiles thumbnail humanize %}
 
 {% block extra_css %}
 {% endblock %}
@@ -16,11 +16,6 @@
 {% block main %}
     <div class="row">
         <div class="card-area col-md-8 col-xs-12">
-            <!-- 有新的博客更新时 -->
-            <div class="stream-update">
-                <a href="{% url 'blogs:list' %}"><span class="blogs-posts"></span>以下是新的博客</a>
-            </div>
-
             <!-- 循环遍历博客列表 -->
             {% for blog in blogs %}
                 <div class="mt-5" blog-id="{{ blog.id }}">
@@ -36,7 +31,7 @@
                             <p class="card-text">{{ blog.content|slice:'250' }}</p>
                             <div>
                                 <a href="{% url 'blogs:detail' blog.slug %}" class="btn-sm btn-primary mr-3">阅读全文</a>
-                                <a href="">{{ blog.author.author.get_name }}</a>发表于{{ blog.created_at|naturaltime }}
+                                <a href="">{{ blog.user.name }}</a>发表于{{ blog.created_at|naturaltime }}
                             </div>
                         </div>
                         <div class="card-footer text-muted">
@@ -73,5 +68,5 @@
         </div>
     </div>
 {% endblock %}
-{% block extra_js %
+{% block extra_js %}
 {% endblock %}

@@ -88,15 +88,9 @@
                     <ul class="notification-area pull-right">
                         <li id="full-view"><i class="ti-fullscreen"></i></li>
                         <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-                        {% if request.user.is_authenticated %}
-                            <li class="dropdown">
-                                <i class="ti-bell dropdown-toggle" data-toggle="popover" id="notifications"></i>
-                            </li>
-                        {% else %}
-                            <li class="dropdown">
-                                <i class="btn ti-bell dropdown-toggle" onclick="window.location.href='{% url 'account_login' %}'"></i>
-                            </li>
-                        {% endif %}
+                        <li class="dropdown">
+                            <i class="ti-bell dropdown-toggle" data-toggle="popover" id="notifications"></i>
+                        </li>
                         <li class="settings-btn">
                             <i class="ti-settings"></i>
                         </li>
@@ -117,7 +111,7 @@
                         {% if user.is_authenticated %}
                             <img class="avatar user-thumb" src="{% static 'assets/images/author/avatar.png' %}"
                                  alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ request.user.get_name }}<i
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ request.user.name }}<i
                                     class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a href="{% url 'account_email' %}" class="dropdown-item">Change E-mail</a>
@@ -170,9 +164,6 @@
 <script type="text/javascript">
     const currentUser = '{{ request.user.username }}';
 </script>
-
-<script src="{% static 'assets/js/reconnecting-websocket.js' %}"></script>
-<script src="{% static 'assets/js/notifications.js' %}"></script>
 
 {% block extra_js %}
 {% endblock %}

@@ -42,9 +42,11 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",  # 时间标签
 ]
 
 THIRD_PARTY_APPS = [
+    'simpleui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -62,7 +64,7 @@ LOCAL_APPS = [
     'likes.apps.LikesConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,7 +146,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 SITE_ID = 1
 
@@ -174,3 +176,17 @@ EMAIL_PORT = env.DJANGO_EMAIL_PORT
 EMAIL_HOST_USER = env.DJANGO_EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = env.DJANGO_EMAIL_HOST_PASSWORD
 DEFAULT_FROM_EMAIL = env.DJANGO_DEFAULT_FROM_EMAIL
+
+# Ckeditor
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'wight': 1200,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = 'blog_img/'
+CKEDITOR_RESTRICT_BY_DATE = True

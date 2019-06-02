@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class LikesConfig(AppConfig):
     name = 'likes'
-    verbose_name = '点赞'
+    verbose_name = '点赞管理'

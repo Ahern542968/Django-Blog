@@ -69,7 +69,7 @@
             <h2 class="text-center mt-5">{{ blog.title|title }}</h2>
             <!-- Author -->
             <p class="text-left mt-2 mb-2">
-                <a href="#">{{ blog.author.author.get_name }}</a>
+                <a href="#">{{ blog.user.name }}</a>
                 发表于{{ blog.created_at }}
             </p>
             <div class="interaction" id="interaction">
@@ -119,35 +119,34 @@
     <script src="{% static 'assets/js/highlight.pack.js' %}"></script>
     <script>hljs.initHighlightingOnLoad()</script>
     <script>
-        function change_like(object_type, object_id){
+        function switch_like(object_type, object_id){
             $.ajax({
                 cache: false,
                 type: "POST",
-                url:"{% url 'likes:change_like' %}",
+                url:"{% url 'likes:switch_like' %}",
                 data:{'object_type': object_type, 'object_id': object_id},
                 beforeSend:function(xhr, settings){
                     xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
                 success: function(data) {
-                    if (data.status == 'success') {
-                        $(".like .like-count").text(data['like_num']);
-                        console.log(data['msg']);
-                        if (data['is_like'] == true) {
-                            $(".like .heart").removeClass("fa fa-heart-o");
-                            $(".like .heart").addClass("fa fa-heart");
-                        } else {
-                            $(".like .heart").removeClass("fa fa-heart");
-                            $(".like .heart").addClass("fa fa-heart-o");
-                        }
+                    $(".like .like-count").text(data['like_num']);
+                    console.log(data['msg']);
+                    if (data['is_like'] == true) {
+                        $(".like .heart").removeClass("fa fa-heart-o");
+                        $(".like .heart").addClass("fa fa-heart");
                     } else {
-                        window.location.href="{% url 'account_login' %}";
+                        $(".like .heart").removeClass("fa fa-heart");
+                        $(".like .heart").addClass("fa fa-heart-o");
                     }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
                 },
             });
             return false;
         }
         $('.like').on('click', function(){
-            change_like('blog', {{ blog.id }});
+            switch_like('blog', {{ blog.id }});
         });
     </script>
 
