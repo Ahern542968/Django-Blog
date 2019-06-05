@@ -3,6 +3,7 @@ from collections import defaultdict
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from django.conf import settings
+from django.shortcuts import reverse
 
 from uuslug import slugify
 
@@ -89,3 +90,7 @@ class Blog(models.Model):
 
     def get_like_num(self):
         return self.likes.count()
+
+    def get_absolute_url(self):
+        return reverse('blogs:detail', kwargs={'slug': self.slug})
+

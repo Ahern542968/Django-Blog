@@ -8,7 +8,7 @@
     <div class="breadcrumbs-area clearfix">
         <h4 class="page-title pull-left">AhernBlog</h4>
         <ul class="breadcrumbs pull-left">
-            <li><a href="index.html">首页</a></li>
+            <li><a href="{% url 'index' %}">首页</a></li>
             <li><span>博客</span></li>
         </ul>
     </div>
@@ -27,8 +27,8 @@
                         {% endthumbnail %}
 
                         <div class="card-body">
-                            <h5 class="title">{{ blog.title }}</h5>
-                            <p class="card-text">{{ blog.content|slice:'250' }}</p>
+                            <h5 class="title">{{ blog.title|title }}</h5>
+                            <p class="card-text">{{ blog.content|truncatechars:'250' }}</p>
                             <div>
                                 <a href="{% url 'blogs:detail' blog.slug %}" class="btn-sm btn-primary mr-3">阅读全文</a>
                                 <a href="">{{ blog.user.name }}</a>发表于{{ blog.created_at|naturaltime }}
@@ -60,7 +60,7 @@
                     <a href="{% url 'blogs:list' %}"><span
                             class="badge badge-info">全部({{ blog_publish_counted }})</span></a>
                     {% for tag, count in tags_cloud %}
-                        <a href="{% url 'blogs:list' %}?tag={{ tag }}"><span
+                        <a href="{{ blog.get_absolute_url }}?tag={{ tag }}"><span
                                 class="badge badge-info">{{ tag }}({{ count }})</span></a>
                     {% endfor %}
                 </div>

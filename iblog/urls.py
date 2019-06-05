@@ -27,9 +27,10 @@ urlpatterns = [
     # 第三方的应用
     path('accounts/', include('allauth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('search/', include('haystack.urls')),
 
-    # 自己的应用
+    # 开发的应用
     path('likes/', include(('likes.urls', 'likes'), namespace='likes')),
     path('blogs/', include(('blogs.urls', 'blogs'), namespace='blogs')),
-    path('index/', views.index),
+    path('index/', views.index, name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

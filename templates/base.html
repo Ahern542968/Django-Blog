@@ -77,8 +77,8 @@
                         <span></span>
                     </div>
                     <div class="search-box pull-left">
-                        <form action="#">
-                            <input type="text" name="search" placeholder="Search..." required>
+                        <form role="search" action="{% url 'haystack_search' %}">
+                            <input type="text" name="q" placeholder="Search..." required>
                             <i class="ti-search"></i>
                         </form>
                     </div>

@@ -46,7 +46,6 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'simpleui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -55,6 +54,8 @@ THIRD_PARTY_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
+    'simpleui',
+    'haystack',
 ]
 
 LOCAL_APPS = [
@@ -62,6 +63,7 @@ LOCAL_APPS = [
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
     'likes.apps.LikesConfig',
+    'search.apps.SearchConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
@@ -190,3 +192,17 @@ CKEDITOR_CONFIGS = {
 
 CKEDITOR_UPLOAD_PATH = 'blog_img/'
 CKEDITOR_RESTRICT_BY_DATE = True
+
+
+# django-haystack elasticsearch
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
